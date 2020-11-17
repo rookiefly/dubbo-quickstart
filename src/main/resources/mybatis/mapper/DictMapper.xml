@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rookiefly.quickstart.dubbo.mapper.DictMapper">
+
+    <resultMap id="dictDataResultMap" type="DictData">
+        <id property="code" column="dict_code" javaType="java.lang.Long"/>
+        <result property="label" column="dict_label" javaType="java.lang.String"/>
+        <result property="type" column="dict_type" javaType="java.lang.String"/>
+        <result property="value" column="dict_value" javaType="java.lang.String"/>
+        <result property="sort" column="dict_sort" javaType="java.lang.Integer"/>
+        <result property="remark" column="remark" javaType="java.lang.String"/>
+        <result property="isDefault" column="is_default" javaType="java.lang.String"/>
+        <result property="status" column="status" javaType="java.lang.String"/>
+        <result property="updateBy" column="update_by" javaType="java.lang.String"/>
+        <result property="gmtCreated" column="create_time" javaType="java.util.Date"/>
+        <result property="gmtModified" column="update_time" javaType="java.util.Date"/>
+    </resultMap>
+
+    <select id="queryDictDataByType" parameterType="java.lang.String" resultMap="dictDataResultMap">
+        SELECT *
+        FROM sys_dict_data
+        WHERE dict_type = #{type}
+    </select>
+
+    <select id="queryDictDataByCode" parameterType="java.lang.Long" resultMap="dictDataResultMap">
+        SELECT *
+        FROM sys_dict_data
+        WHERE dict_code = #{code}
+    </select>
+
+</mapper>
