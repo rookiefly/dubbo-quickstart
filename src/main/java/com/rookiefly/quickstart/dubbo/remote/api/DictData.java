@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.model;
+package com.rookiefly.quickstart.dubbo.remote.api;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.rookiefly.quickstart.dubbo.mapper;
 
-import com.rookiefly.quickstart.dubbo.model.DictData;
+import com.rookiefly.quickstart.dubbo.dao.DictDataDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface DictMapper {
      * @param code
      * @return
      */
-    DictData queryDictDataByCode(Long code);
+    DictDataDO queryDictDataByCode(Long code);
 
     /**
      * 分类id查询字典列表
@@ -22,6 +22,6 @@ public interface DictMapper {
      * @param type
      * @return
      */
-    List<DictData> queryDictDataByType(String type);
+    List<DictDataDO> queryDictDataByType(String type);
 
 }

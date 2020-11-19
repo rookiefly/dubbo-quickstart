@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.model;
+package com.rookiefly.quickstart.dubbo.utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;

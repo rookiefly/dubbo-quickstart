@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rookiefly.quickstart.dubbo.mapper.DictMapper">
 
-    <resultMap id="dictDataResultMap" type="DictData">
+    <resultMap id="dictDataResultMap" type="DictDataDO">
         <id property="code" column="dict_code" javaType="java.lang.Long"/>
         <result property="label" column="dict_label" javaType="java.lang.String"/>
         <result property="type" column="dict_type" javaType="java.lang.String"/>

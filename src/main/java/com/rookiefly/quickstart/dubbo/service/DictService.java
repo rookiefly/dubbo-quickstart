@@ -1,12 +1,12 @@
 package com.rookiefly.quickstart.dubbo.service;
 
-import com.rookiefly.quickstart.dubbo.model.DictData;
+import com.rookiefly.quickstart.dubbo.bo.DictDataBO;
 
 import java.util.List;
 
 public interface DictService {
 
-    DictData queryDictDataByCode(Long code);
+    DictDataBO queryDictDataByCode(Long code);
 
-    List<DictData> queryDictDataByType(String type);
+    List<DictDataBO> queryDictDataByType(String type);
 }

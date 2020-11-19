@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.model;
+package com.rookiefly.quickstart.dubbo.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

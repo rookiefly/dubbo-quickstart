@@ -1,7 +1,7 @@
 package com.rookiefly.quickstart.dubbo.controller;
 
-import com.rookiefly.quickstart.dubbo.model.CommonResponse;
 import com.rookiefly.quickstart.dubbo.service.DictService;
+import com.rookiefly.quickstart.dubbo.vo.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

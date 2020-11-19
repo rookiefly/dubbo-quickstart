@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.model;
+package com.rookiefly.quickstart.dubbo.dao;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class DictType implements Serializable {
+public class DictTypeDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

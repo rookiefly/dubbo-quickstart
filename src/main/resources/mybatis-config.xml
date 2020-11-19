@@ -5,7 +5,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.rookiefly.quickstart.dubbo.model"/>
+        <package name="com.rookiefly.quickstart.dubbo.dao"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mapper/DictMapper.xml"/>

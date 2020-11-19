@@ -1,6 +1,6 @@
 package com.rookiefly.quickstart.dubbo.handler;
 
-import com.rookiefly.quickstart.dubbo.model.CommonResponse;
+import com.rookiefly.quickstart.dubbo.vo.CommonResponse;
 import com.rookiefly.quickstart.dubbo.monitor.PrometheusCustomMonitor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
