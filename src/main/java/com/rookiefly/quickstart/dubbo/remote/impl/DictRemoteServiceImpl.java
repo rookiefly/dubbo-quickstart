@@ -1,6 +1,6 @@
-package com.rookiefly.quickstart.dubbo.facade.impl;
+package com.rookiefly.quickstart.dubbo.remote.impl;
 
-import com.rookiefly.quickstart.dubbo.facade.api.DictFacadeService;
+import com.rookiefly.quickstart.dubbo.remote.api.DictRemoteService;
 import com.rookiefly.quickstart.dubbo.model.DictData;
 import com.rookiefly.quickstart.dubbo.service.DictService;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @DubboService(version = "1.0.0")
-public class DictFacadeServiceImpl implements DictFacadeService {
+public class DictRemoteServiceImpl implements DictRemoteService {
 
     @Resource
     private DictService dictService;
