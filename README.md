@@ -1,3 +1,14 @@
+## DOCKER运行
+- 运行下列命令可以在本地Docker中创建一个镜像：
+```shell script
+mvn package docker:build
+```
+- 然后运行Docker容器：
+```shell script
+docker run -d -p 8080:8080 --name sample-app rooiefky/dubbo-quickstart
+```
+
+## 添加skywalking全链路跟踪
 - 将agent目录拷贝到部署spring boot项目的机器里，修改agent的配置，配置在agent/config/agent.config：
 ```properties
 agent.service_name=${SW_AGENT_NAME:dubbo-quickstart}
@@ -9,10 +20,9 @@ logging.file_name=${SW_LOGGING_FILE_NAME:skywalking-api.log}
 # Logging level
 logging.level=${SW_LOGGING_LEVEL:DEBUG}
 ```
-- agent.service_name填写springboot的application.name即可，也可自定义名字。
-collector.backend_service填写trace receiver service地址。
+- agent.service_name填写springboot的application.name即可，collector.backend_service填写trace receiver service地址。
 
-- 以javaagent的形式启动springboot工程：
+- 以javaagent的形式启动工程：
 ```shell script
 java -javaagent:/path/to/skywalking-agent/skywalking-agent.jar -jar yourApp.jar
 ```
