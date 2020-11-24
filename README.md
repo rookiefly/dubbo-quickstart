@@ -5,7 +5,7 @@ mvn package docker:build
 ```
 - 然后运行Docker容器：
 ```shell script
-docker run -d -p 8080:8080 --name sample-app rooiefky/dubbo-quickstart
+docker run -d -p 8787:8787 --name dubbo-quickstart rooiefky/dubbo-quickstart
 ```
 
 ## 添加skywalking全链路跟踪
@@ -24,6 +24,6 @@ logging.level=${SW_LOGGING_LEVEL:DEBUG}
 
 - 以javaagent的形式启动工程：
 ```shell script
-java -javaagent:/path/to/skywalking-agent/skywalking-agent.jar -jar yourApp.jar
+java -javaagent:/path/to/skywalking-agent/skywalking-agent.jar -jar dubbo-quickstart-1.0.0-SNAPSHOT.jar
 ```
 [Setup java agent](https://github.com/apache/skywalking/blob/v8.2.0/docs/en/setup/service-agent/java-agent/README.md)
