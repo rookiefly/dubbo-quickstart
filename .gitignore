@@ -34,3 +34,5 @@ build/
 
 ### skywalking-agent ###
 skywalking-agent/
+
+.DS_Store
