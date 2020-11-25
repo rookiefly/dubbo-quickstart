@@ -1,0 +1,2 @@
+LogConsumerFilter=com.rookiefly.quickstart.dubbo.filter.LogConsumerFilter
+LogProviderFilter=com.rookiefly.quickstart.dubbo.filter.LogProviderFilter
