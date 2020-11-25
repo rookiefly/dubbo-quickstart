@@ -6,6 +6,7 @@
     <artifactId>dubbo-quickstart</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>dubbo-quickstart</name>
+    <packaging>jar</packaging>
     <description>Demo quick start project for Spring Boot</description>
 
     <properties>
@@ -14,7 +15,7 @@
         <dubbo.version>2.7.7</dubbo.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <!--<maven.deploy.skip>true</maven.deploy.skip>-->
         <docker.image.prefix>rookiefly</docker.image.prefix>
     </properties>
 
@@ -170,6 +171,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.6.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -206,10 +214,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <!-- Docker maven plugin -->
             <plugin>

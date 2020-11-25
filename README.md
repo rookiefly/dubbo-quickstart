@@ -5,7 +5,7 @@ mvn package docker:build
 ```
 - 然后运行Docker容器：
 ```shell script
-docker run -d -p 8787:8787 --name dubbo-quickstart rooiefky/dubbo-quickstart
+docker run -d -p 8787:8787 --name dubbo-quickstart -e jasypt.encryptor.password=123456 rookiefly/dubbo-quickstart:latest
 ```
 
 ## 添加skywalking全链路跟踪
