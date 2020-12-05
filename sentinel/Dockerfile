@@ -9,7 +9,7 @@ ARG port
 ENV SENTINEL_VERSION ${version:-1.8.0}
 #PORT
 ENV PORT ${port:-8280}
-ENV JAVA_OPT=""
+ENV JAVA_OPTS=""
 #
 ENV PROJECT_NAME sentinel-dashboard
 ENV SERVER_HOST localhost
@@ -34,16 +34,6 @@ RUN cd /  \
  && wget https://github.com/alibaba/Sentinel/releases/download/v${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar -O sentinel-dashboard.jar \
  && mv sentinel-dashboard.jar ${SENTINEL_HOME} \
  && chmod -R +x ${SENTINEL_HOME}/*jar
-# test file
-#COPY sentinel-dashboard.jar ${SENTINEL_HOME}
-
-# add scripts
-COPY scripts/* /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
-&& ln -s /usr/local/bin/docker-entrypoint.sh /opt/docker-entrypoint.sh
-
-#
-#RUN chmod -R +x ${SENTINEL_HOME}/*jar
 
 VOLUME ${SENTINEL_LOGS}
 
@@ -51,7 +41,4 @@ WORKDIR  ${SENTINEL_HOME}
 
 EXPOSE ${PORT}
 
-
-CMD java ${JAVA_OPT} -jar sentinel-dashboard.jar
-
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar sentinel-dashboard.jar"]
