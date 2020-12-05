@@ -31,7 +31,7 @@ RUN mkdir -p ${SENTINEL_LOGS}
 
 # get the version
 RUN cd /  \
- && wget https://github.com/alibaba/Sentinel/releases/download/${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar -O sentinel-dashboard.jar \
+ && wget https://github.com/alibaba/Sentinel/releases/download/v${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar -O sentinel-dashboard.jar \
  && mv sentinel-dashboard.jar ${SENTINEL_HOME} \
  && chmod -R +x ${SENTINEL_HOME}/*jar
 # test file
