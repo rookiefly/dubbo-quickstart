@@ -73,8 +73,7 @@ services:
       - dubbo.config-center.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
       - dubbo.metadata-report.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
       - jasypt.encryptor.password=123456
-      - csp.sentinel.dashboard.server=sentinel-dashboard:8280
-      - project.name=sentinel-dubbo-quickstart
+      - JAVA_OPTS=-Dcsp.sentinel.dashboard.server=sentinel-dashboard:8280 -Dproject.name=sentinel-dubbo-quickstart
     depends_on:
       - zk1
       - zk2
