@@ -38,7 +38,7 @@ services:
       - dubbo-net
 
   dubbo-admin:
-    image: rooiefly/dubbo-admin:latest
+    image: rookiefly/dubbo-admin:latest
     container_name: dubbo-admin
     ports:
       - 8089:8080
@@ -46,7 +46,7 @@ services:
       - dubbo-net
     environment:
       - admin.registry.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
-      #- admin.config-center=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - admin.config-center=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
       - admin.metadata-report.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
     depends_on:
       - zk1
@@ -70,7 +70,7 @@ services:
       - dubbo-net
     environment:
       - dubbo.registry.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
-      #- dubbo.config-center.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - dubbo.config-center.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
       - dubbo.metadata-report.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
       - jasypt.encryptor.password=123456
       - csp.sentinel.dashboard.server=sentinel-dashboard:8280
