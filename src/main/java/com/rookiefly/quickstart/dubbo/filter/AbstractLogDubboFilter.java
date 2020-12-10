@@ -1,11 +1,11 @@
 package com.rookiefly.quickstart.dubbo.filter;
 
 import com.rookiefly.quickstart.dubbo.constants.LogKey;
-import com.rookiefly.quickstart.dubbo.utils.KeyValues;
 import com.rookiefly.quickstart.dubbo.framework.rpc.RpcBizException;
 import com.rookiefly.quickstart.dubbo.framework.rpc.RpcCode;
 import com.rookiefly.quickstart.dubbo.framework.rpc.RpcResult;
 import com.rookiefly.quickstart.dubbo.utils.JsonWrapper;
+import com.rookiefly.quickstart.dubbo.utils.KeyValues;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.rpc.Filter;
@@ -156,7 +156,6 @@ public abstract class AbstractLogDubboFilter implements Filter {
         boolean isProvider = isProvider();
         String msg = "fail";
 
-
         // 是打印error还是打印warn
         boolean needPrintErrorLog = throwable != null && needPrintErrorLog(throwable);
 
@@ -164,7 +163,7 @@ public abstract class AbstractLogDubboFilter implements Filter {
          * 优先判断RpcResult，如果为null，那么就使用异常码中code和msg
          * 注意：printExceptionLog方法入参 {@link throwable} 和 {@link codeAndMsg} 只会有一个不为空
          */
-        Integer errorCode;
+        String errorCode;
         String errorMsg;
         if (rpcResult != null) {
             errorCode = rpcResult.getCode();
@@ -298,14 +297,12 @@ public abstract class AbstractLogDubboFilter implements Filter {
      * @param e
      * @return
      */
-    protected Integer getExceptionCode(Throwable e) {
+    protected String getExceptionCode(Throwable e) {
         // 先进行通用异常处理
         if (e instanceof RpcBizException) {
             return ((RpcBizException) e).getCode();
-
-            // 处理dubbo的RpcException
         } else if (e instanceof RpcException) {
-            return ((RpcException) e).getCode();
+            return String.valueOf(((RpcException) e).getCode());
         }
 
         return null;

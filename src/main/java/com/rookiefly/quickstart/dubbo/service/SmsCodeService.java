@@ -11,5 +11,5 @@ public interface SmsCodeService {
 
     SmsCodeBO sendSmsCode(String mobile);
 
-    SmsCodeValidateResultBO validateSmsCode(SmsCodeParam smsCodeParam);
+    Boolean validateSmsCode(SmsCodeParam smsCodeParam);
 }

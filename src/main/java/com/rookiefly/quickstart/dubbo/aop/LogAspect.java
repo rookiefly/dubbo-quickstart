@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -45,7 +46,6 @@ public class LogAspect {
          */
         log.info("RequestMapping:[{}]", request.getRequestURI());
 
-
         //这里是从token中获取用户信息，打印当前的访问用户，代码不通用
 /*        String token = request.getHeader(JwtUtils.TOKEN_HEADER);
         if (token != null && token.startsWith(JwtUtils.TOKEN_PREFIX)) {
@@ -69,10 +69,25 @@ public class LogAspect {
          */
 
         log.info("Response:[{}]", JSON.toJSONString(response));
-        //
+
         /**
          * 记录请求耗时
          */
         log.info("Request spend times : [{}ms]", System.currentTimeMillis() - startTime.get());
     }
+
+    @AfterThrowing(pointcut = "requestLog()", throwing = "error")
+    public void afterThrowingAdvice(JoinPoint jp, Throwable error) {
+        /**
+         * 记录响应信息
+         */
+
+        log.info("Response:[{}]", JSON.toJSONString(error));
+
+        /**
+         * 记录请求耗时
+         */
+        log.info("Request spend times : [{}ms]", System.currentTimeMillis() - startTime.get());
+    }
+
 }

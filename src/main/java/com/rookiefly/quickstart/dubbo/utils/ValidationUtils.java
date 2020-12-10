@@ -1,6 +1,7 @@
 package com.rookiefly.quickstart.dubbo.utils;
 
 import com.google.common.collect.Lists;
+import com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum;
 import com.rookiefly.quickstart.dubbo.framework.rpc.RpcBizException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ public class ValidationUtils {
         if (CollectionUtils.isNotEmpty(constraintViolations)) {
             List<String> tipList = Lists.newArrayList();
             constraintViolations.forEach(constraintViolationImpl -> tipList.add(constraintViolationImpl.getMessage()));
-            throw new RpcBizException(-1, StringUtils.join(tipList, ","));
+            throw new RpcBizException(BizErrorCodeEnum.UNSPECIFIED.getCode(), StringUtils.join(tipList, ","));
         }
     }
 }

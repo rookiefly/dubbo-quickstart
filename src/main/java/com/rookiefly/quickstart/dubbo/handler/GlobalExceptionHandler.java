@@ -1,8 +1,9 @@
 package com.rookiefly.quickstart.dubbo.handler;
 
+import com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum;
+import com.rookiefly.quickstart.dubbo.exception.BizException;
 import com.rookiefly.quickstart.dubbo.monitor.PrometheusCustomMonitor;
 import com.rookiefly.quickstart.dubbo.vo.CommonResponse;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -23,27 +24,32 @@ public class GlobalExceptionHandler {
     @Resource
     private PrometheusCustomMonitor monitor;
 
+    /**
+     * 通用异常处理
+     *
+     * @param ex
+     * @return
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
-    public CommonResponse handle(Exception e) {
+    public CommonResponse handle(Exception ex) {
         monitor.getRequestErrorCount().increment();
         return CommonResponse.newErrorResponse();
     }
 
     /**
-     * 数据校验处理
+     * 业务异常处理
      *
-     * @param e
-     * @return CommonResponse
+     * @param ex
+     * @return
      */
-    @ExceptionHandler({BindException.class, ConstraintViolationException.class})
-    public CommonResponse validatorExceptionHandler(Exception e) {
-        String msg = e instanceof BindException ? ((BindException) e).getBindingResult().getAllErrors().stream().findFirst().get().getDefaultMessage()
-                : ((ConstraintViolationException) e).getConstraintViolations().stream().findFirst().get().getMessage();
-        CommonResponse errorResponse = CommonResponse.newErrorResponse();
-        errorResponse.setMsg(msg);
-        return errorResponse;
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(value = BizException.class)
+    public CommonResponse handle(BizException ex) {
+        monitor.getRequestErrorCount().increment();
+        return CommonResponse.newErrorResponse(ex.getErrorCode());
     }
 
     /**
@@ -52,15 +58,28 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return CommonResponse
      */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CommonResponse handleException(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
         List<ObjectError> objectErrorList = bindingResult.getAllErrors();
-        CommonResponse errorResponse = CommonResponse.newErrorResponse();
-        if (CollectionUtils.isNotEmpty(objectErrorList)) {
-            errorResponse.setMsg(objectErrorList.stream().findFirst().get().getDefaultMessage());
-        }
-        return errorResponse;
+        String msg = objectErrorList.stream().findFirst().get().getDefaultMessage();
+        return CommonResponse.newErrorResponse(BizErrorCodeEnum.REQUEST_ERROR, msg);
+    }
+
+    /**
+     * 数据校验处理
+     *
+     * @param ex
+     * @return CommonResponse
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({BindException.class, ConstraintViolationException.class})
+    public CommonResponse validatorExceptionHandler(Exception ex) {
+        String msg = ex instanceof BindException ? ((BindException) ex).getBindingResult().getAllErrors().stream().findFirst().get().getDefaultMessage()
+                : ((ConstraintViolationException) ex).getConstraintViolations().stream().findFirst().get().getMessage();
+        return CommonResponse.newErrorResponse(BizErrorCodeEnum.REQUEST_ERROR, msg);
     }
 }

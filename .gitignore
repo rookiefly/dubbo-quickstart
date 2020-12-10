@@ -36,3 +36,8 @@ build/
 skywalking-agent/
 
 .DS_Store
+
+mysql-data/
+redis-data/
+rmq/
+rmqs/

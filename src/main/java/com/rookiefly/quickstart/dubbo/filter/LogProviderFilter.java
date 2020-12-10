@@ -21,7 +21,7 @@ public class LogProviderFilter extends AbstractLogDubboFilter {
     }
 
     @Override
-    protected Integer getExceptionCode(Throwable e) {
-        return e instanceof BizException ? ((BizException) e).getCode() : super.getExceptionCode(e);
+    protected String getExceptionCode(Throwable e) {
+        return e instanceof BizException ? ((BizException) e).getErrorCode().getCode() : super.getExceptionCode(e);
     }
 }

@@ -1,10 +1,12 @@
 package com.rookiefly.quickstart.dubbo.service.impl;
 
 import com.rookiefly.quickstart.dubbo.bo.SmsCodeBO;
-import com.rookiefly.quickstart.dubbo.bo.SmsCodeValidateResultBO;
+import com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum;
+import com.rookiefly.quickstart.dubbo.exception.BizException;
 import com.rookiefly.quickstart.dubbo.param.SmsCodeParam;
 import com.rookiefly.quickstart.dubbo.service.SmsCodeService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,7 @@ public class SmsCodeServiceImpl implements SmsCodeService {
     @Override
     public SmsCodeBO sendSmsCode(String mobile) {
         String smsCode = RandomStringUtils.randomNumeric(SMS_CODE_LENGTH);
-        String smsCodeKey = String.format(SMS_CODE_KEY, mobile);
+        String smsCodeKey = getSmsCodeKey(mobile);
         stringRedisTemplate.opsForValue().set(smsCodeKey, smsCode, TIMEOUT, TimeUnit.MINUTES);
         SmsCodeBO smsCodeBO = new SmsCodeBO();
         smsCodeBO.setSmsCode(smsCode);
@@ -51,7 +53,20 @@ public class SmsCodeServiceImpl implements SmsCodeService {
     }
 
     @Override
-    public SmsCodeValidateResultBO validateSmsCode(SmsCodeParam smsCodeParam) {
-        return null;
+    public Boolean validateSmsCode(SmsCodeParam smsCodeParam) {
+        String smsCodeKey = getSmsCodeKey(smsCodeParam.getMobile());
+        String actualSmsCode = stringRedisTemplate.opsForValue().get(smsCodeKey);
+        if (StringUtils.isBlank(actualSmsCode)) {
+            throw new BizException(BizErrorCodeEnum.SMS_CODE_NOT_EXITS);
+        } else if (smsCodeParam.getSmsCode().equals(actualSmsCode)) {
+            return true;
+        } else {
+            throw new BizException(BizErrorCodeEnum.SMS_CODE_ILLEGAL);
+        }
+    }
+
+    private String getSmsCodeKey(String mobile) {
+        String smsCodeKey = String.format(SMS_CODE_KEY, mobile);
+        return smsCodeKey;
     }
 }

@@ -6,7 +6,7 @@ public class RpcResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int code = -1;
+    private String code = "-1";
 
     private String msg;
 
@@ -17,11 +17,11 @@ public class RpcResult<T> implements Serializable {
     public RpcResult() {
     }
 
-    public int getCode() {
+    public String getCode() {
         return this.code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

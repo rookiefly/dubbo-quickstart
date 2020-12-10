@@ -4,41 +4,30 @@ public class RpcBizException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String DEFAULT_MSG = "默认系统错误";
+    protected String code = "500";
 
-    protected int code = -1;
-
-    protected String msg = "默认系统错误";
+    protected String msg = "服务器内部错误";
 
     public RpcBizException() {
     }
 
-    public RpcBizException(Throwable cause) {
-        super(cause);
-    }
-
-    public RpcBizException(int code) {
-        super("默认系统错误");
-        this.code = code;
-    }
-
-    public RpcBizException(int code, String msg) {
+    public RpcBizException(String code, String msg) {
         super(msg);
         this.code = code;
         this.msg = msg;
     }
 
-    public RpcBizException(int code, String msg, Throwable cause) {
+    public RpcBizException(String code, String msg, Throwable cause) {
         super(msg, cause);
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return this.code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
