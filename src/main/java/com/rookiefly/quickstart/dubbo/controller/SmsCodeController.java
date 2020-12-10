@@ -1,5 +1,6 @@
 package com.rookiefly.quickstart.dubbo.controller;
 
+import com.rookiefly.quickstart.dubbo.bo.SmsCodeBO;
 import com.rookiefly.quickstart.dubbo.bo.SmsCodeValidateResultBO;
 import com.rookiefly.quickstart.dubbo.param.SmsCodeParam;
 import com.rookiefly.quickstart.dubbo.service.SmsCodeService;
@@ -24,11 +25,11 @@ public class SmsCodeController {
 
     @GetMapping("/send/{mobile}")
     public CommonResponse sendSmsCode(@PathVariable("mobile") @NotBlank(message = "手机号不能为空") String mobile) {
-        String smsCode = smsCodeService.sendSmsCode(mobile);
+        SmsCodeBO smsCodeBO = smsCodeService.sendSmsCode(mobile);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
-        HashMap<Object, String> data = new HashMap<>();
+        HashMap<Object, SmsCodeBO> data = new HashMap<>();
         successResponse.setData(data);
-        data.put("smsCode", smsCode);
+        data.put("smsCode", smsCodeBO);
         return successResponse;
     }
 
