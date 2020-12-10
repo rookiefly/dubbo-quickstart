@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.remote.api;
+package com.rookiefly.quickstart.dubbo.framework.rpc;
 
 public class RpcBizException extends RuntimeException {
 

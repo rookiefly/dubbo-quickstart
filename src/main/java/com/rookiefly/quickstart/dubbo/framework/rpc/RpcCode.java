@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.constants;
+package com.rookiefly.quickstart.dubbo.framework.rpc;
 
 public class RpcCode {
 

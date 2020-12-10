@@ -1,7 +1,7 @@
 package com.rookiefly.quickstart.dubbo.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.rookiefly.quickstart.dubbo.remote.api.RpcResult;
+import com.rookiefly.quickstart.dubbo.framework.rpc.RpcResult;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

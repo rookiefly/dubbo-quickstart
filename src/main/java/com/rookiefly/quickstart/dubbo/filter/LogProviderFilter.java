@@ -6,7 +6,7 @@ import org.apache.dubbo.common.extension.Activate;
 
 @Activate(
         group = {CommonConstants.PROVIDER},
-        order = 2000
+        order = 100
 )
 public class LogProviderFilter extends AbstractLogDubboFilter {
 

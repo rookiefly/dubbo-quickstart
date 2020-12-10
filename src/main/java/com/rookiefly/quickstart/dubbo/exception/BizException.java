@@ -1,6 +1,6 @@
 package com.rookiefly.quickstart.dubbo.exception;
 
-import com.rookiefly.quickstart.dubbo.remote.api.RpcBizException;
+import com.rookiefly.quickstart.dubbo.framework.rpc.RpcBizException;
 
 public class BizException extends RpcBizException {
 
