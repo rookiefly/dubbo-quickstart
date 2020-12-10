@@ -6,13 +6,11 @@ public class RpcResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String code = "500";
+    private String code;
 
     private String msg;
 
     private T data;
-
-    private Double providerTimeCost;
 
     public RpcResult() {
     }
@@ -41,20 +39,11 @@ public class RpcResult<T> implements Serializable {
         this.data = data;
     }
 
-    public Double getProviderTimeCost() {
-        return this.providerTimeCost;
-    }
-
-    public void setProviderTimeCost(Double providerTimeCost) {
-        this.providerTimeCost = providerTimeCost;
-    }
-
     public String toString() {
         StringBuilder sb = new StringBuilder("RpcResult{");
         sb.append("code=").append(this.code);
         sb.append(", msg='").append(this.msg).append('\'');
         sb.append(", data=").append(this.data);
-        sb.append(", providerTimeCost=").append(this.providerTimeCost);
         sb.append('}');
         return sb.toString();
     }
