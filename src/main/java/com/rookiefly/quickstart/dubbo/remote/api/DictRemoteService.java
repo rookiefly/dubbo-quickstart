@@ -1,10 +1,12 @@
 package com.rookiefly.quickstart.dubbo.remote.api;
 
+import com.rookiefly.quickstart.dubbo.framework.rpc.RpcResult;
+
 import java.util.List;
 
 public interface DictRemoteService {
 
-    DictData queryDictDataByCode(Long code);
+    RpcResult<DictData> queryDictDataByCode(Long code);
 
-    List<DictData> queryDictDataByType(String type);
+    RpcResult<List<DictData>> queryDictDataByType(String type);
 }

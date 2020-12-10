@@ -1,6 +1,8 @@
 package com.rookiefly.quickstart.dubbo.remote.impl;
 
 import com.rookiefly.quickstart.dubbo.bo.DictDataBO;
+import com.rookiefly.quickstart.dubbo.framework.rpc.RpcResult;
+import com.rookiefly.quickstart.dubbo.framework.rpc.RpcResultTool;
 import com.rookiefly.quickstart.dubbo.remote.api.DictData;
 import com.rookiefly.quickstart.dubbo.remote.api.DictRemoteService;
 import com.rookiefly.quickstart.dubbo.service.DictService;
@@ -18,21 +20,21 @@ public class DictRemoteServiceImpl implements DictRemoteService {
     private DictService dictService;
 
     @Override
-    public DictData queryDictDataByCode(Long code) {
+    public RpcResult<DictData> queryDictDataByCode(Long code) {
         DictDataBO dictDataBO = dictService.queryDictDataByCode(code);
         DictData dictData = new DictData();
         BeanUtils.copyProperties(dictDataBO, dictData);
-        return dictData;
+        return RpcResultTool.newSuccessRpcResult(dictData);
     }
 
     @Override
-    public List<DictData> queryDictDataByType(String type) {
+    public RpcResult<List<DictData>> queryDictDataByType(String type) {
         List<DictDataBO> dictDataBOList = dictService.queryDictDataByType(type);
         List<DictData> dictDataList = dictDataBOList.stream().map(dictDataBO -> {
             DictData dictData = new DictData();
             BeanUtils.copyProperties(dictDataBO, dictData);
             return dictData;
         }).collect(Collectors.toList());
-        return dictDataList;
+        return RpcResultTool.newSuccessRpcResult(dictDataList);
     }
 }
