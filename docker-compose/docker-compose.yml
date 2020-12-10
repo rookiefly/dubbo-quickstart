@@ -1,0 +1,87 @@
+version: "3.5"
+
+services:
+  zk1:
+    image: zookeeper
+    #restart: always
+    container_name: zk1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    networks:
+      - dubbo-net
+
+  zk2:
+    image: zookeeper
+    #restart: always
+    container_name: zk2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    networks:
+      - dubbo-net
+
+  zk3:
+    image: zookeeper
+    #restart: always
+    container_name: zk3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    networks:
+      - dubbo-net
+
+  dubbo-admin:
+    image: rookiefly/dubbo-admin:latest
+    container_name: dubbo-admin
+    ports:
+      - 8089:8080
+    networks:
+      - dubbo-net
+    environment:
+      - admin.registry.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - admin.config-center=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - admin.metadata-report.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+    depends_on:
+      - zk1
+      - zk2
+      - zk3
+
+  sentinel-dashboard:
+    image: rookiefly/sentinel-dashboard:latest
+    container_name: sentinel-dashboard
+    ports:
+      - 8280:8280
+    networks:
+      - dubbo-net
+
+  dubbo-quickstart:
+    image: rookiefly/dubbo-quickstart:latest
+    container_name: dubbo-quickstart
+    ports:
+      - 8787:8787
+    networks:
+      - dubbo-net
+    environment:
+      - dubbo.registry.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - dubbo.config-center.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - dubbo.metadata-report.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - jasypt.encryptor.password=123456
+      - JAVA_OPTS=-Dcsp.sentinel.dashboard.server=sentinel-dashboard:8280 -Dproject.name=sentinel-dubbo-quickstart
+    depends_on:
+      - zk1
+      - zk2
+      - zk3
+      - dubbo-admin
+      - sentinel-dashboard
+
+networks:
+  dubbo-net:
+    name: dubbo-net
+    driver: bridge
