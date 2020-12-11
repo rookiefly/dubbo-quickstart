@@ -30,14 +30,14 @@ RUN rm -rf /etc/localtime \
 RUN mkdir -p ${SENTINEL_LOGS}
 
 # get the jar form github
-RUN cd /  \
- && wget https://github.com/alibaba/Sentinel/releases/download/v${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar -O sentinel-dashboard.jar \
- && mv sentinel-dashboard.jar ${SENTINEL_HOME} \
- && chmod -R +x ${SENTINEL_HOME}/*jar
+#RUN cd /  \
+# && wget https://github.com/alibaba/Sentinel/releases/download/v${SENTINEL_VERSION}/sentinel-dashboard-${SENTINEL_VERSION}.jar -O sentinel-dashboard.jar \
+# && mv sentinel-dashboard.jar ${SENTINEL_HOME} \
+# && chmod -R +x ${SENTINEL_HOME}/*jar
 
 # copy the jar from local
-#COPY ./sentinel-dashboard-1.8.0.jar ${SENTINEL_HOME}/sentinel-dashboard.jar
-#RUN chmod -R +x ${SENTINEL_HOME}/*jar
+COPY ./sentinel-dashboard-1.8.0.jar ${SENTINEL_HOME}/sentinel-dashboard.jar
+RUN chmod -R +x ${SENTINEL_HOME}/*jar
 
 VOLUME ${SENTINEL_LOGS}
 

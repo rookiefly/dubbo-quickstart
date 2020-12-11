@@ -18,7 +18,7 @@ create table sys_dict_type
     remark 	         varchar(500) 	 default null 				comment '备注',
     primary key (dict_id),
     unique (dict_type)
-) engine=innodb auto_increment=1 comment = '字典类型表';
+) auto_increment=1 comment = '字典类型表';
 
 -- ----------------------------
 -- 2、字典数据表
@@ -41,4 +41,4 @@ create table sys_dict_data
     update_time      timestamp                                   comment '更新时间',
     remark 	         varchar(500) 	 default null 				comment '备注',
     primary key (dict_code)
-) engine=innodb auto_increment=1 comment = '字典数据表';
+) auto_increment=1 comment = '字典数据表';
