@@ -9,31 +9,6 @@ services:
       - 2181:2181
     environment:
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
-    networks:
-      - dubbo-net
-
-  zk2:
-    image: zookeeper
-    #restart: always
-    container_name: zk2
-    ports:
-      - 2182:2181
-    environment:
-      ZOO_MY_ID: 2
-      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
-    networks:
-      - dubbo-net
-
-  zk3:
-    image: zookeeper
-    #restart: always
-    container_name: zk3
-    ports:
-      - 2183:2181
-    environment:
-      ZOO_MY_ID: 3
-      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
     networks:
       - dubbo-net
 
@@ -116,13 +91,11 @@ services:
     networks:
       - dubbo-net
     environment:
-      - admin.registry.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
-      - admin.config-center=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
-      - admin.metadata-report.address=zookeeper://zk1:2181?backup=zk2:2181,zk3:2181
+      - admin.registry.address=zookeeper://zk1:2181
+      - admin.config-center=zookeeper://zk1:2181
+      - admin.metadata-report.address=zookeeper://zk1:2181
     depends_on:
       - zk1
-      - zk2
-      - zk3
 
   sentinel-dashboard:
     image: rookiefly/sentinel-dashboard:latest
@@ -141,11 +114,10 @@ services:
       - dubbo-net
     environment:
       - jasypt.encryptor.password=123456
+      - com.rocketmq.sendMessageWithVIPChannel=false
       - JAVA_OPTS=-Dcsp.sentinel.dashboard.server=sentinel-dashboard:8280 -Dproject.name=sentinel-dubbo-quickstart
     depends_on:
       - zk1
-      - zk2
-      - zk3
       - dubbo-admin
       - sentinel-dashboard
       - redis
