@@ -1,6 +1,7 @@
 -- ----------------------------
 -- 1、字典类型表
 -- ----------------------------
+drop table if exists sys_dict_type;
 create table if not exists sys_dict_type
 (
     dict_id          bigint(20)      not null auto_increment    comment '字典主键',
@@ -19,6 +20,7 @@ create table if not exists sys_dict_type
 -- ----------------------------
 -- 2、字典数据表
 -- ----------------------------
+drop table if exists sys_dict_data;
 create table if not exists sys_dict_data
 (
     dict_code        bigint(20)      not null auto_increment    comment '字典编码',
@@ -41,7 +43,8 @@ create table if not exists sys_dict_data
 -- ----------------------------
 -- 3、省市区镇数据表
 -- ----------------------------
-create table city_data
+drop table if exists city_data;
+create table if not exists city_data
 (
     id            bigint           not null comment '城市编号',
     pid           bigint default 0 not null comment '上级ID',

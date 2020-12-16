@@ -115,7 +115,7 @@ services:
     environment:
       - jasypt.encryptor.password=123456
       - com.rocketmq.sendMessageWithVIPChannel=false
-      - JAVA_OPTS=-Dcsp.sentinel.dashboard.server=sentinel-dashboard:8280 -Dproject.name=sentinel-dubbo-quickstart
+      - JAVA_OPTS=-Djava.net.preferIPv4Stack=true -Dcsp.sentinel.dashboard.server=sentinel-dashboard:8280 -Dproject.name=sentinel-dubbo-quickstart
     depends_on:
       - zk1
       - dubbo-admin
