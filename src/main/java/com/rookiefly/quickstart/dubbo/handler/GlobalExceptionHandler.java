@@ -4,6 +4,7 @@ import com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum;
 import com.rookiefly.quickstart.dubbo.exception.BizException;
 import com.rookiefly.quickstart.dubbo.monitor.PrometheusCustomMonitor;
 import com.rookiefly.quickstart.dubbo.vo.CommonResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @Resource
@@ -34,6 +36,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public CommonResponse handle(Exception ex) {
+        log.error("error", ex);
         monitor.getRequestErrorCount().increment();
         return CommonResponse.newErrorResponse();
     }
@@ -48,6 +51,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = BizException.class)
     public CommonResponse handle(BizException ex) {
+        log.error("error", ex);
         monitor.getRequestErrorCount().increment();
         return CommonResponse.newErrorResponse(ex.getErrorCode());
     }
@@ -62,6 +66,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CommonResponse handleException(MethodArgumentNotValidException ex) {
+        log.error("error", ex);
         BindingResult bindingResult = ex.getBindingResult();
         List<ObjectError> objectErrorList = bindingResult.getAllErrors();
         String msg = objectErrorList.stream().findFirst().get().getDefaultMessage();
@@ -78,6 +83,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({BindException.class, ConstraintViolationException.class})
     public CommonResponse validatorExceptionHandler(Exception ex) {
+        log.error("error", ex);
         String msg = ex instanceof BindException ? ((BindException) ex).getBindingResult().getAllErrors().stream().findFirst().get().getDefaultMessage()
                 : ((ConstraintViolationException) ex).getConstraintViolations().stream().findFirst().get().getMessage();
         return CommonResponse.newErrorResponse(BizErrorCodeEnum.REQUEST_ERROR, msg);

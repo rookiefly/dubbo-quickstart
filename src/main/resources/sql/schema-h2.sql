@@ -42,3 +42,19 @@ create table sys_dict_data
     remark 	         varchar(500) 	 default null 				comment '备注',
     primary key (dict_code)
 ) auto_increment=1 comment = '字典数据表';
+
+-- ----------------------------
+-- 3、省市区镇数据表
+-- ----------------------------
+create table city_data
+(
+    id            bigint           not null comment '城市编号',
+    pid           bigint default 0 not null comment '上级ID',
+    deep          tinyint          not null comment '层级深度；0：省，1：市，2：区，3：镇',
+    name          varchar(100)     not null comment '城市名称',
+    pinyin_prefix varchar(20)      not null comment 'name的拼音前缀，取的是pinyin第一个字母',
+    pinyin        varchar(100)     not null comment 'name的完整拼音',
+    ext_id        bigint           not null comment '数据源原始的编号；如果是添加的数据，此编号为0',
+    ext_name      varchar(100)     not null comment '数据源原始的名称，为未精简的名称',
+    primary key (id)
+) comment '省市区镇数据';

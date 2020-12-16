@@ -1,6 +1,6 @@
 package com.rookiefly.quickstart.dubbo.mapper;
 
-import com.rookiefly.quickstart.dubbo.dao.DictDataDO;
+import com.rookiefly.quickstart.dubbo.model.DictDataDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

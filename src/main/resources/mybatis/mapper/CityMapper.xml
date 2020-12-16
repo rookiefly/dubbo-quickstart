@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rookiefly.quickstart.dubbo.mapper.CityMapper">
+
+    <resultMap id="cityDataResultMap" type="CityDataDO">
+        <id property="id" column="id" javaType="java.lang.Long"/>
+        <result property="pid" column="pid" javaType="java.lang.Long"/>
+        <result property="deep" column="deep" javaType="java.lang.Integer"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="pinyinPrefix" column="pinyin_prefix" javaType="java.lang.String"/>
+        <result property="pinyin" column="pinyin" javaType="java.lang.String"/>
+        <result property="extId" column="ext_id" javaType="java.lang.Long"/>
+        <result property="extName" column="ext_name" javaType="java.lang.String"/>
+    </resultMap>
+
+    <select id="queryCityDataByType" parameterType="java.lang.Integer" resultMap="cityDataResultMap">
+        SELECT *
+        FROM city_data
+        WHERE deep = #{type}
+    </select>
+
+    <select id="queryCityDataByCityId" parameterType="java.lang.Long" resultMap="cityDataResultMap">
+        SELECT *
+        FROM city_data
+        WHERE id = #{cityId}
+    </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+package com.rookiefly.quickstart.dubbo.bo;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+public class CityDataBO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 城市编号
+     */
+    private Long id;
+
+    /**
+     * 上级ID
+     */
+    private Long pid;
+
+    /**
+     * 层级深度；0：省，1：市，2：区，3：镇
+     */
+    private Integer deep;
+
+    /**
+     * 城市名称
+     */
+    private String name;
+
+    /**
+     * name的拼音前缀，取的是pinyin第一个字母
+     */
+    private String pinyinPrefix;
+
+    /**
+     * name的完整拼音
+     */
+    private String pinyin;
+
+    /**
+     * 数据源原始的编号；如果是添加的数据，此编号为0
+     */
+    private Long extId;
+
+    /**
+     * 数据源原始的名称，为未精简的名称
+     */
+    private String extName;
+}
