@@ -9,14 +9,17 @@ services:
       - 2181:2181
     environment:
       ZOO_MY_ID: 1
+    volumes:
+      - zoo-data:/var/lib/zookeeper/data
+      - zoo-log:/var/lib/zookeeper/log
     networks:
       - dubbo-net
 
   mysqldb:
     image: rookiefly/mysql:latest
-    container_name: mysql
+    container_name: mysqldb
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
       - ./mysql-init-files:/docker-entrypoint-initdb.d
     #restart: always
     environment:
@@ -33,7 +36,7 @@ services:
     image: redis:latest
     container_name: redis
     volumes:
-      - ./redis-data:/data
+      - redis-data:/data
     ports:
       - "6379:6379"
     #restart: always
@@ -46,11 +49,11 @@ services:
     ports:
       - 9876:9876
     volumes:
-      - ./rmqs/logs:/opt/logs
-      - ./rmqs/store:/opt/store
+      - rmqs-logs:/opt/logs
+      - rmqs-store:/opt/store
     environment:
       JAVA_OPT_EXT: "-Duser.home=/opt -Xms512M -Xmx512M -Xmn128m"
-    command: [ "sh","mqnamesrv" ]
+    command: ["sh", "mqnamesrv"]
     networks:
       - dubbo-net
 
@@ -61,12 +64,21 @@ services:
       - 10909:10909
       - 10911:10911
     volumes:
-      - ./rmq/logs:/opt/logs
-      - ./rmq/store:/opt/store
+      - rmq-logs:/opt/logs
+      - rmq-store:/opt/store
       - ./rmq/brokerconf/broker.conf:/etc/rocketmq/broker.conf
     environment:
       JAVA_OPT_EXT: "-Duser.home=/opt -Xms512M -Xmx512M -Xmn128m"
-    command: [ "sh","mqbroker","-c","/etc/rocketmq/broker.conf","-n","rmqnamesrv:9876","autoCreateTopicEnable=true" ]
+    command:
+      [
+        "sh",
+        "mqbroker",
+        "-c",
+        "/etc/rocketmq/broker.conf",
+        "-n",
+        "rmqnamesrv:9876",
+        "autoCreateTopicEnable=true",
+      ]
     depends_on:
       - rmqnamesrv
     networks:
@@ -129,3 +141,20 @@ networks:
   dubbo-net:
     name: dubbo-net
     driver: bridge
+volumes:
+  redis-data:
+    driver: local
+  rmq-logs:
+    driver: local
+  rmq-store:
+    driver: local
+  rmqs-logs:
+    driver: local
+  rmqs-store:
+    driver: local
+  mysql-data:
+    driver: local
+  zoo-data:
+    driver: local
+  zoo-log:
+    driver: local
