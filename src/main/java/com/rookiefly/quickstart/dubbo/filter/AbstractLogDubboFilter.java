@@ -292,7 +292,7 @@ public abstract class AbstractLogDubboFilter implements Filter {
     }
 
     /**
-     * 为了能在didi.log中解析出异常的code，这里提供口子让用户根据业务异常来返回异常码
+     * 为了能解析出异常的code，这里提供口子让用户根据业务异常来返回异常码
      *
      * @param e
      * @return
