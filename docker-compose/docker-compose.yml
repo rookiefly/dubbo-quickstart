@@ -3,10 +3,9 @@ version: "3.5"
 services:
   zk1:
     image: zookeeper
-    #restart: always
     container_name: zk1
-    ports:
-      - 2181:2181
+#    ports:
+#      - 2181:2181
     environment:
       ZOO_MY_ID: 1
     volumes:
@@ -21,14 +20,13 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./mysql-init-files:/docker-entrypoint-initdb.d
-    #restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dictdb
       MYSQL_USER: rookiefly
       MYSQL_PASSWORD: rookiefly
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
     networks:
       - dubbo-net
 
@@ -37,64 +35,72 @@ services:
     container_name: redis
     volumes:
       - redis-data:/data
-    ports:
-      - "6379:6379"
-    #restart: always
-    networks:
-      - dubbo-net
-
-  rmqnamesrv:
-    image: foxiswho/rocketmq:4.7.0
-    container_name: rmqnamesrv
-    ports:
-      - 9876:9876
-    volumes:
-      - rmqs-logs:/opt/logs
-      - rmqs-store:/opt/store
-    environment:
-      JAVA_OPT_EXT: "-Duser.home=/opt -Xms512M -Xmx512M -Xmn128m"
-    command: ["sh", "mqnamesrv"]
-    networks:
-      - dubbo-net
-
-  rmqbroker:
-    image: foxiswho/rocketmq:4.7.0
-    container_name: rmqbroker
-    ports:
-      - 10909:10909
-      - 10911:10911
-    volumes:
-      - rmq-logs:/opt/logs
-      - rmq-store:/opt/store
-      - ./rmq/brokerconf/broker.conf:/etc/rocketmq/broker.conf
-    environment:
-      JAVA_OPT_EXT: "-Duser.home=/opt -Xms512M -Xmx512M -Xmn128m"
-    command:
-      [
-        "sh",
-        "mqbroker",
-        "-c",
-        "/etc/rocketmq/broker.conf",
-        "-n",
-        "rmqnamesrv:9876",
-        "autoCreateTopicEnable=true",
-      ]
-    depends_on:
-      - rmqnamesrv
+#    ports:
+#      - "6379:6379"
     networks:
       - dubbo-net
 
   rmqconsole:
-    image: styletang/rocketmq-console-ng
+    image: rookiefly/rocketmq-console-ng
     container_name: rmqconsole
     ports:
       - 8180:8080
     environment:
-      JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
-      - rmqnamesrv
+      - namesrv
     networks:
       - dubbo-net
+
+  namesrv:
+    image: apacherocketmq/rocketmq:4.8.0
+    container_name: rmqnamesrv
+#    ports:
+#      - 9876:9876
+    volumes:
+      - ./data/namesrv/logs:/home/rocketmq/logs
+    command: nohup sh mqnamesrv &
+    networks:
+      - dubbo-net
+
+  broker:
+    image: apacherocketmq/rocketmq:4.8.0
+    container_name: rmqbroker
+#    ports:
+#      - 10909:10909
+#      - 10911:10911
+#      - 10912:10912
+    environment:
+      - NAMESRV_ADDR=namesrv:9876
+    volumes:
+      - ./data/broker/logs:/home/rocketmq/logs
+      - ./data/broker/store:/home/rocketmq/store
+      - ./data/broker/conf/broker.conf:/opt/rocketmq-4.8.0/conf/broker.conf
+    command: nohup sh mqbroker -n namesrv:9876 -c /opt/rocketmq-4.8.0/conf/broker.conf &
+    depends_on:
+      - namesrv
+    networks:
+      - dubbo-net
+
+#   broker1:
+#     image: apacherocketmq/rocketmq:4.8.0
+#     container_name: rmqbroker-b
+# #    ports:
+# #      - 10929:10909
+# #      - 10931:10911
+# #      - 10932:10912
+#     environment:
+#       - NAMESRV_ADDR=namesrv:9876
+#     volumes:
+#       - ./data1/broker/logs:/home/rocketmq/logs
+# #      - ./data1/broker/store:/home/rocketmq/store
+#       - ./data1/broker/conf/broker.conf:/opt/rocketmq-4.8.0/conf/broker.conf
+#     command: nohup sh mqbroker -n namesrv:9876 -c /opt/rocketmq-4.8.0/conf/broker.conf &
+#     depends_on:
+#       - namesrv
+#     networks:
+#       - dubbo-net
+
   dubbo-admin:
     image: rookiefly/dubbo-admin:latest
     container_name: dubbo-admin
@@ -130,12 +136,8 @@ services:
       - JAVA_OPTS=-Djava.net.preferIPv4Stack=true -Dcsp.sentinel.dashboard.server=sentinel-dashboard:8280 -Dproject.name=sentinel-dubbo-quickstart
     depends_on:
       - zk1
-      - dubbo-admin
-      - sentinel-dashboard
       - redis
       - mysqldb
-      - rmqbroker
-      - rmqnamesrv
 
 networks:
   dubbo-net:
@@ -143,14 +145,6 @@ networks:
     driver: bridge
 volumes:
   redis-data:
-    driver: local
-  rmq-logs:
-    driver: local
-  rmq-store:
-    driver: local
-  rmqs-logs:
-    driver: local
-  rmqs-store:
     driver: local
   mysql-data:
     driver: local
