@@ -1,0 +1,104 @@
+com.rocketmq.sendMessageWithVIPChannel: false
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+    address: N/A
+  scan:
+    base-packages: com.rookiefly.quickstart.dubbo.remote.impl
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    ivGeneratorClassname: org.jasypt.iv.RandomIvGenerator
+management:
+  endpoint:
+    dubbo:
+      enabled: true
+    dubboconfigs:
+      enabled: true
+    dubboproperties:
+      enabled: true
+    dubboreferences:
+      enabled: true
+    dubboservices:
+      enabled: true
+    dubboshutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      cors:
+        allowed-methods: GET,POST
+        allowed-origins: '*'
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.rookiefly.quickstart.dubbo.model
+pagehelper:
+  default-count: false
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: dubbo-quickstart-group
+  sms:
+    topic: sms-topic
+server:
+  port: 8787
+  tomcat:
+    accesslog:
+      buffered: true
+      directory: logs
+      enabled: false
+      file-date-format: .yyyy-MM-dd
+      pattern: common
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: false
+      rotate: true
+      suffix: .log
+    mbeanregistry:
+      enabled: true
+spring:
+  application:
+    name: dubbo-quickstart
+  cache:
+    cache-names: dictCache,cityCache
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
+  datasource:
+    data: classpath:sql/data.sql
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      maximumPoolSize: 20
+      minimumIdle: 5
+      poolName: dictHikariCP
+    initialization-mode: ALWAYS
+    password: ENC(W5p2CjSM+dafOGhlhKaKx3hriew7tlfwYWxdHJwYMdn7Px2o1uCEzsWGEq0UgJlZ)
+    schema: classpath:sql/schema-h2.sql
+    url: jdbc:h2:mem:dictdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+  h2:
+    console:
+      enabled: true
+  profiles:
+    active: '@spring.active@'
+  redis:
+    database: 0
+    host: localhost
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 5
+        max-wait: 5000
+    password: ''
+    port: 6379
+    timeout: 3000
+swagger:
+  swagger-open: true

@@ -1,0 +1,112 @@
+co.rocketmq.sendMessageWithVIPChannel: false
+dubbo:
+  application:
+    name: ${spring.application.name}
+    qosAcceptForeignIp: false
+    qosEnable: true
+    qosPort: 33333
+  config-center:
+    address: zookeeper://zk1:2181
+  metadata-report:
+    address: zookeeper://zk1:2181
+  protocol:
+    name: dubbo
+    port: 20880
+  registry:
+    address: zookeeper://zk1:2181
+  scan:
+    base-packages: com.rookiefly.quickstart.dubbo.remote.impl
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    ivGeneratorClassname: org.jasypt.iv.RandomIvGenerator
+management:
+  endpoint:
+    dubbo:
+      enabled: true
+    dubboconfigs:
+      enabled: true
+    dubboproperties:
+      enabled: true
+    dubboreferences:
+      enabled: true
+    dubboservices:
+      enabled: true
+    dubboshutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      cors:
+        allowed-methods: GET,POST
+        allowed-origins: '*'
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.rookiefly.quickstart.dubbo.model
+pagehelper:
+  default-count: false
+rocketmq:
+  name-server: namesrv:9876
+  producer:
+    group: dubbo-quickstart-group
+  sms:
+    topic: sms-topic
+server:
+  port: 8787
+  tomcat:
+    accesslog:
+      buffered: true
+      directory: logs
+      enabled: false
+      file-date-format: .yyyy-MM-dd
+      pattern: common
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: false
+      rotate: true
+      suffix: .log
+    mbeanregistry:
+      enabled: true
+spring:
+  application:
+    name: dubbo-quickstart
+  cache:
+    cache-names: dictCache
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
+  datasource:
+    data: classpath:sql/data.sql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      maximumPoolSize: 20
+      minimumIdle: 5
+      poolName: dictHikariCP
+    initialization-mode: ALWAYS
+    password: ENC(W5p2CjSM+dafOGhlhKaKx3hriew7tlfwYWxdHJwYMdn7Px2o1uCEzsWGEq0UgJlZ)
+    schema: classpath:sql/schema.sql
+    url: jdbc:mysql://mysqldb:3306/dictdb?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+  profiles:
+    active: dev
+  redis:
+    database: 0
+    host: redis
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 5
+        max-wait: 5000
+    password: ''
+    port: 6379
+    timeout: 3000
+swagger:
+  swagger-open: true
