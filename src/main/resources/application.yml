@@ -1,9 +1,12 @@
-com.rocketmq.sendMessageWithVIPChannel: false
 dubbo:
   application:
     name: ${spring.application.name}
   registry:
-    address: N/A
+    address: zookeeper://localhost:2181
+  config-center:
+    address: zookeeper://localhost:2181
+  metadata-report:
+    address: zookeeper://localhost:2181
   scan:
     base-packages: com.rookiefly.quickstart.dubbo.remote.impl
 jasypt:
@@ -41,12 +44,6 @@ mybatis:
   type-aliases-package: com.rookiefly.quickstart.dubbo.model
 pagehelper:
   default-count: false
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: dubbo-quickstart-group
-  sms:
-    topic: sms-topic
 server:
   port: 8787
   tomcat:
@@ -102,3 +99,10 @@ spring:
     timeout: 3000
 swagger:
   swagger-open: true
+#com.rocketmq.sendMessageWithVIPChannel: false
+#rocketmq:
+#  name-server: 127.0.0.1:9876
+#  producer:
+#    group: dubbo-quickstart-group
+#  sms:
+#    topic: sms-topic
