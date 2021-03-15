@@ -1,12 +1,8 @@
 dubbo:
   application:
     name: ${spring.application.name}
-  registry:
-    address: zookeeper://localhost:2181
-  config-center:
-    address: zookeeper://localhost:2181
-  metadata-report:
-    address: zookeeper://localhost:2181
+  protocol:
+    name: dubbo
   scan:
     base-packages: com.rookiefly.quickstart.dubbo.remote.impl
 jasypt:
@@ -68,7 +64,6 @@ spring:
     caffeine:
       spec: maximumSize=500,expireAfterAccess=600s
   datasource:
-    data: classpath:sql/data.sql
     hikari:
       connectionTimeout: 30000
       idleTimeout: 30000
@@ -77,32 +72,6 @@ spring:
       minimumIdle: 5
       poolName: dictHikariCP
     initialization-mode: ALWAYS
-    password: ENC(W5p2CjSM+dafOGhlhKaKx3hriew7tlfwYWxdHJwYMdn7Px2o1uCEzsWGEq0UgJlZ)
-    schema: classpath:sql/schema-h2.sql
-    url: jdbc:h2:mem:dictdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-  h2:
-    console:
-      enabled: true
   profiles:
-    active: '@spring.active@'
-  redis:
-    database: 0
-    host: localhost
-    lettuce:
-      pool:
-        max-active: 10
-        max-idle: 5
-        max-wait: 5000
-    password: ''
-    port: 6379
-    timeout: 3000
-swagger:
-  swagger-open: true
-#com.rocketmq.sendMessageWithVIPChannel: false
-#rocketmq:
-#  name-server: 127.0.0.1:9876
-#  producer:
-#    group: dubbo-quickstart-group
-#  sms:
-#    topic: sms-topic
+    #    active: @spring.active@
+    active: dev
