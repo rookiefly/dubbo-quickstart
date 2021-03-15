@@ -73,5 +73,4 @@ spring:
       poolName: dictHikariCP
     initialization-mode: ALWAYS
   profiles:
-    #    active: @spring.active@
-    active: dev
+    active: @spring.active@
