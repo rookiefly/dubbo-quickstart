@@ -14,6 +14,9 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 城市查询服务
+ */
 @RestController
 @RequestMapping("/city")
 public class CityController {
@@ -21,6 +24,12 @@ public class CityController {
     @Resource
     private CityService cityService;
 
+    /**
+     * 根据城市类型查询城市数据， type 0：省，1：市，2：区，3：镇
+     *
+     * @param type
+     * @return
+     */
     @GetMapping("/type/{type}")
     public CommonResponse queryCityDataByType(@PathVariable("type") @NotBlank(message = "城市类型不能为空") Integer type) {
         List<CityDataBO> dictDataBOList = cityService.queryCityDataByType(type);
@@ -31,6 +40,12 @@ public class CityController {
         return successResponse;
     }
 
+    /**
+     * 根据城市编码查询城市数据
+     *
+     * @param cityId
+     * @return
+     */
     @GetMapping("/{cityId}")
     public CommonResponse queryCityDataByCode(@PathVariable("cityId") @NotNull(message = "城市ID不能为空") Long cityId) {
         CityDataBO cityDataBO = cityService.queryCityDataByCityId(cityId);

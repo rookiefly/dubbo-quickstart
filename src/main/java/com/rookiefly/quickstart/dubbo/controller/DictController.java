@@ -14,6 +14,9 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 字典查询服务
+ */
 @RestController
 @RequestMapping("/dict")
 public class DictController {
@@ -21,6 +24,12 @@ public class DictController {
     @Resource
     private DictService dictService;
 
+    /**
+     * 根据字典类型查询字典列表明细数据
+     *
+     * @param type
+     * @return
+     */
     @GetMapping("/type/{type}")
     public CommonResponse queryDictDataByType(@PathVariable("type") @NotBlank(message = "字典类型不能为空") String type) {
         List<DictDataBO> dictDataBOList = dictService.queryDictDataByType(type);
@@ -31,6 +40,12 @@ public class DictController {
         return successResponse;
     }
 
+    /**
+     * 根据字典code查询字典明细数据
+     *
+     * @param code
+     * @return
+     */
     @GetMapping("/{code}")
     public CommonResponse queryDictDataByCode(@PathVariable("code") @NotNull(message = "字典编码不能为空") Long code) {
         DictDataBO dictDataBO = dictService.queryDictDataByCode(code);

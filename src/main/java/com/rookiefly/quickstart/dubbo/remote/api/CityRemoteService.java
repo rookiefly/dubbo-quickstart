@@ -4,6 +4,11 @@ import com.rookiefly.quickstart.dubbo.framework.rpc.RpcResult;
 
 import java.util.List;
 
+/**
+ * 城市数据查询服务
+ *
+ * @dubbo
+ */
 public interface CityRemoteService {
 
     /**

@@ -1,0 +1,51 @@
+{
+  "serverUrl": "http://127.0.0.1:8787",
+  "isStrict": false,
+  "allInOne": true,
+  "outPath": "src/main/resources/static/doc",
+  "coverOld": true,
+  "createDebugPage": true,
+  "style": "xt256",
+  "packageFilters": "com.rookiefly.quickstart.dubbo.controlle",
+  "md5EncryptedHtmlName": true,
+  "projectName": "dubbo-quickstart",
+  "inlineEnum": true,
+  "skipTransientField": true,
+  "revisionLogs": [
+    {
+      "version": "1.0.0-SNAPSHOT",
+      "revisionTime": "2021-03-25 10:30",
+      "status": "update",
+      "author": "rookiefly",
+      "remarks": "更新dubbo接口"
+    }
+  ],
+  "dataDictionaries": [
+    {
+      "title": "http状态码字典",
+      "enumClassName": "com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum",
+      "codeField": "code",
+      "descField": "description"
+    }
+  ],
+  "errorCodeDictionaries": [
+    {
+      "title": "http错误码列表",
+      "enumClassName": "com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum",
+      "codeField": "code",
+      "descField": "description"
+    }
+  ],
+  "rpcApiDependencies": [
+    {
+      "artifactId": "dubbo-quickstart",
+      "groupId": "com.rookiefly.quickstart.dubbo",
+      "version": "1.0.0-SNAPSHOT"
+    }
+  ],
+  "apiConstants": [
+    {
+      "constantsClassName": "com.rookiefly.quickstart.dubbo.constants.LogKey"
+    }
+  ]
+}

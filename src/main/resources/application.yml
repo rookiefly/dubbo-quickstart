@@ -1,3 +1,37 @@
+server:
+  port: 8787
+  tomcat:
+    accesslog:
+      buffered: true
+      directory: logs
+      enabled: false
+      file-date-format: .yyyy-MM-dd
+      pattern: common
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: false
+      rotate: true
+      suffix: .log
+    mbeanregistry:
+      enabled: true
+spring:
+  application:
+    name: dubbo-quickstart
+  cache:
+    cache-names: dictCache,cityCache
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
+  datasource:
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      maximumPoolSize: 20
+      minimumIdle: 5
+      poolName: dictHikariCP
+    initialization-mode: ALWAYS
+  profiles:
+    active: @spring.active@
 dubbo:
   application:
     name: ${spring.application.name}
@@ -40,37 +74,3 @@ mybatis:
   type-aliases-package: com.rookiefly.quickstart.dubbo.model
 pagehelper:
   default-count: false
-server:
-  port: 8787
-  tomcat:
-    accesslog:
-      buffered: true
-      directory: logs
-      enabled: false
-      file-date-format: .yyyy-MM-dd
-      pattern: common
-      prefix: access_log
-      rename-on-rotate: false
-      request-attributes-enabled: false
-      rotate: true
-      suffix: .log
-    mbeanregistry:
-      enabled: true
-spring:
-  application:
-    name: dubbo-quickstart
-  cache:
-    cache-names: dictCache,cityCache
-    caffeine:
-      spec: maximumSize=500,expireAfterAccess=600s
-  datasource:
-    hikari:
-      connectionTimeout: 30000
-      idleTimeout: 30000
-      maxLifetime: 2000000
-      maximumPoolSize: 20
-      minimumIdle: 5
-      poolName: dictHikariCP
-    initialization-mode: ALWAYS
-  profiles:
-    active: @spring.active@
