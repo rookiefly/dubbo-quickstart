@@ -25,9 +25,9 @@ public class CityController {
     private CityService cityService;
 
     /**
-     * 根据城市类型查询城市数据， type 0：省，1：市，2：区，3：镇
+     * 根据城市类型查询城市数据
      *
-     * @param type
+     * @param type 0：省，1：市，2：区，3：镇
      * @return
      */
     @GetMapping("/type/{type}")
@@ -43,7 +43,7 @@ public class CityController {
     /**
      * 根据城市编码查询城市数据
      *
-     * @param cityId
+     * @param cityId 城市id
      * @return
      */
     @GetMapping("/{cityId}")

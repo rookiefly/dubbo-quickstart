@@ -27,7 +27,7 @@ public class DictController {
     /**
      * 根据字典类型查询字典列表明细数据
      *
-     * @param type
+     * @param type 字典类型
      * @return
      */
     @GetMapping("/type/{type}")
@@ -43,7 +43,7 @@ public class DictController {
     /**
      * 根据字典code查询字典明细数据
      *
-     * @param code
+     * @param code 字典code
      * @return
      */
     @GetMapping("/{code}")
