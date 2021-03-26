@@ -19,7 +19,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dict")
-//@SoulSpringMvcClient(path = "/rest/dict")
 public class DictController {
 
     @Resource
@@ -32,7 +31,6 @@ public class DictController {
      * @return
      */
     @GetMapping("/type/{type}")
-//    @SoulSpringMvcClient(path = "/type/**", desc = "Query Dict Data By Type")
     public CommonResponse queryDictDataByType(@PathVariable("type") @NotBlank(message = "字典类型不能为空") String type) {
         List<DictDataBO> dictDataBOList = dictService.queryDictDataByType(type);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
@@ -49,7 +47,6 @@ public class DictController {
      * @return
      */
     @GetMapping("/{code}")
-//    @SoulSpringMvcClient(path = "/**", desc = "Query Dict Data By Code")
     public CommonResponse queryDictDataByCode(@PathVariable("code") @NotNull(message = "字典编码不能为空") Long code) {
         DictDataBO dictDataBO = dictService.queryDictDataByCode(code);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();

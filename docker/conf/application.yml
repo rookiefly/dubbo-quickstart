@@ -1,4 +1,3 @@
-co.rocketmq.sendMessageWithVIPChannel: false
 dubbo:
   application:
     name: ${spring.application.name}
@@ -51,12 +50,6 @@ mybatis:
   type-aliases-package: com.rookiefly.quickstart.dubbo.model
 pagehelper:
   default-count: false
-rocketmq:
-  name-server: namesrv:9876
-  producer:
-    group: dubbo-quickstart-group
-  sms:
-    topic: sms-topic
 server:
   port: 8787
   tomcat:

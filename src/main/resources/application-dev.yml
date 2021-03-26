@@ -29,19 +29,3 @@ spring:
     timeout: 3000
 swagger:
   swagger-open: true
-#com.rocketmq.sendMessageWithVIPChannel: false
-#rocketmq:
-#  name-server: 127.0.0.1:9876
-#  producer:
-#    group: dubbo-quickstart-group
-#  sms:
-#    topic: sms-topic
-#soul:
-#  client:
-#    registerType: http
-#    serverLists: http://localhost:9095
-#    props:
-#      contextPath: /quickstart
-#      appName: ${spring.application.name}
-#      port: ${server.port}
-#      isFull: false

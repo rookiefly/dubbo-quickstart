@@ -18,7 +18,7 @@
         <sentinel.version>1.8.0</sentinel.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <!--<maven.deploy.skip>true</maven.deploy.skip>-->
+        <maven.deploy.skip>true</maven.deploy.skip>
         <docker.image.prefix>rookiefly</docker.image.prefix>
     </properties>
 
@@ -200,16 +200,6 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-client</artifactId>
-            <version>4.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
@@ -217,16 +207,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.dromara</groupId>-->
-<!--            <artifactId>soul-spring-boot-starter-client-springmvc</artifactId>-->
-<!--            <version>${soul.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.dromara</groupId>-->
-<!--            <artifactId>soul-spring-boot-starter-client-apache-dubbo</artifactId>-->
-<!--            <version>${soul.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -313,7 +293,7 @@
                                     <message>No Snapshots Allowed!</message>
                                 </requireReleaseDeps>
                             </rules>
-                            <fail>false</fail>
+                            <fail>true</fail>
                         </configuration>
                     </execution>
                 </executions>

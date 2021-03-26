@@ -20,7 +20,6 @@ public class DictRemoteServiceImpl implements DictRemoteService {
     private DictService dictService;
 
     @Override
-//    @SoulDubboClient(path = "/dubbo/queryDictDataByCode")
     public RpcResult<DictData> queryDictDataByCode(Long code) {
         DictDataBO dictDataBO = dictService.queryDictDataByCode(code);
         DictData dictData = new DictData();
@@ -29,7 +28,6 @@ public class DictRemoteServiceImpl implements DictRemoteService {
     }
 
     @Override
-//    @SoulDubboClient(path = "/dubbo/queryDictDataByType")
     public RpcResult<List<DictData>> queryDictDataByType(String type) {
         List<DictDataBO> dictDataBOList = dictService.queryDictDataByType(type);
         List<DictData> dictDataList = dictDataBOList.stream().map(dictDataBO -> {

@@ -20,7 +20,6 @@ public class CityRemoteServiceImpl implements CityRemoteService {
     private CityService cityService;
 
     @Override
-//    @SoulDubboClient(path = "/dubbo/queryCityDataByCityId")
     public RpcResult<CityData> queryCityDataByCityId(Long cityId) {
         CityDataBO cityDataBO = cityService.queryCityDataByCityId(cityId);
         CityData cityData = new CityData();
@@ -29,7 +28,6 @@ public class CityRemoteServiceImpl implements CityRemoteService {
     }
 
     @Override
-//    @SoulDubboClient(path = "/dubbo/queryCityDataByType")
     public RpcResult<List<CityData>> queryCityDataByType(Integer type) {
         List<CityDataBO> cityDataBOList = cityService.queryCityDataByType(type);
         List<CityData> cityDataList = cityDataBOList.stream().map(cityDataBO -> {

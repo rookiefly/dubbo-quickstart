@@ -29,10 +29,3 @@ spring:
     password: ''
     port: 6379
     timeout: 3000
-#com.rocketmq.sendMessageWithVIPChannel: false
-#rocketmq:
-#  name-server: 127.0.0.1:9876
-#  producer:
-#    group: dubbo-quickstart-group
-#  sms:
-#    topic: sms-topic
