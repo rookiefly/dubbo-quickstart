@@ -1,7 +1,6 @@
 package com.rookiefly.quickstart.dubbo.service;
 
 import com.rookiefly.quickstart.dubbo.bo.SmsCodeBO;
-import com.rookiefly.quickstart.dubbo.bo.SmsCodeValidateResultBO;
 import com.rookiefly.quickstart.dubbo.param.SmsCodeParam;
 
 /**

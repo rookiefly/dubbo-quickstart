@@ -29,7 +29,6 @@ spring:
       maximumPoolSize: 20
       minimumIdle: 5
       poolName: dictHikariCP
-    initialization-mode: ALWAYS
   profiles:
     active: @spring.active@
 dubbo:

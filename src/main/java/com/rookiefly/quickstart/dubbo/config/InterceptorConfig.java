@@ -2,7 +2,6 @@ package com.rookiefly.quickstart.dubbo.config;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebInterceptor;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebTotalInterceptor;
-import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.DefaultBlockExceptionHandler;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.config.SentinelWebMvcConfig;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.config.SentinelWebMvcTotalConfig;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // the BlockExceptionHandler or throw it directly, then handle it
         // in Spring web global exception handler.
 
-        config.setBlockExceptionHandler((request, response, e) -> { throw e; });
+        config.setBlockExceptionHandler((request, response, e) -> {
+            throw e;
+        });
 
         // Use the default handler.
         // config.setBlockExceptionHandler(new DefaultBlockExceptionHandler());

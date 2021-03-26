@@ -11,6 +11,7 @@ dubbo:
     address: zookeeper://localhost:2181
 spring:
   datasource:
+    initialization-mode: ALWAYS
     data: classpath:sql/data.sql
     password: ENC(W5p2CjSM+dafOGhlhKaKx3hriew7tlfwYWxdHJwYMdn7Px2o1uCEzsWGEq0UgJlZ)
     schema: classpath:sql/schema-h2.sql

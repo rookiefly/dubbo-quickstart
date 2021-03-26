@@ -12,8 +12,9 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-boot.version>2.3.6.RELEASE</spring-boot.version>
-        <dubbo.version>2.7.8</dubbo.version>
-        <dubbo-api-docs.version>2.7.8.1</dubbo-api-docs.version>
+        <dubbo.version>2.7.9</dubbo.version>
+        <skywalking.version>8.2.0</skywalking.version>
+        <soul.version>2.3.0-SNAPSHOT</soul.version>
         <sentinel.version>1.8.0</sentinel.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
@@ -31,16 +32,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- Apache Dubbo  -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-dependencies-bom</artifactId>
+                <artifactId>dubbo-dependencies-zookeeper</artifactId>
                 <version>${dubbo.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -52,18 +50,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-actuator</artifactId>
+            <artifactId>dubbo</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-api-docs-annotations</artifactId>
-            <version>${dubbo-api-docs.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-api-docs-core</artifactId>
-            <version>${dubbo-api-docs.version}</version>
+            <artifactId>dubbo-spring-boot-actuator</artifactId>
+            <version>${dubbo.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -141,12 +134,12 @@
         <dependency>
             <groupId>org.apache.skywalking</groupId>
             <artifactId>apm-toolkit-logback-1.x</artifactId>
-            <version>8.2.0</version>
+            <version>${skywalking.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.skywalking</groupId>
             <artifactId>apm-toolkit-trace</artifactId>
-            <version>8.2.0</version>
+            <version>${skywalking.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -224,6 +217,16 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.dromara</groupId>-->
+<!--            <artifactId>soul-spring-boot-starter-client-springmvc</artifactId>-->
+<!--            <version>${soul.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.dromara</groupId>-->
+<!--            <artifactId>soul-spring-boot-starter-client-apache-dubbo</artifactId>-->
+<!--            <version>${soul.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -310,7 +313,7 @@
                                     <message>No Snapshots Allowed!</message>
                                 </requireReleaseDeps>
                             </rules>
-                            <fail>true</fail>
+                            <fail>false</fail>
                         </configuration>
                     </execution>
                 </executions>

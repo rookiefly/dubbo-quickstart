@@ -1,8 +1,8 @@
 package com.rookiefly.quickstart.dubbo.service.impl;
 
 import com.rookiefly.quickstart.dubbo.bo.DictDataBO;
-import com.rookiefly.quickstart.dubbo.model.DictDataDO;
 import com.rookiefly.quickstart.dubbo.mapper.DictMapper;
+import com.rookiefly.quickstart.dubbo.model.DictDataDO;
 import com.rookiefly.quickstart.dubbo.service.DictService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

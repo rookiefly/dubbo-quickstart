@@ -19,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/city")
+//@SoulSpringMvcClient(path = "/rest/city")
 public class CityController {
 
     @Resource
@@ -31,6 +32,7 @@ public class CityController {
      * @return
      */
     @GetMapping("/type/{type}")
+//    @SoulSpringMvcClient(path = "/type/**", desc = "Query City Data By Type")
     public CommonResponse queryCityDataByType(@PathVariable("type") @NotBlank(message = "城市类型不能为空") Integer type) {
         List<CityDataBO> dictDataBOList = cityService.queryCityDataByType(type);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
@@ -47,6 +49,7 @@ public class CityController {
      * @return
      */
     @GetMapping("/{cityId}")
+//    @SoulSpringMvcClient(path = "/**", desc = "Query City Data By Code")
     public CommonResponse queryCityDataByCode(@PathVariable("cityId") @NotNull(message = "城市ID不能为空") Long cityId) {
         CityDataBO cityDataBO = cityService.queryCityDataByCityId(cityId);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
