@@ -27,7 +27,6 @@ spring:
       idleTimeout: 30000
       maxLifetime: 2000000
       maximumPoolSize: 20
-      minimumIdle: 5
       poolName: dictHikariCP
   profiles:
     active: @spring.active@
