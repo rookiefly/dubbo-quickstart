@@ -1,2 +1,3 @@
 LogConsumerFilter=com.rookiefly.quickstart.dubbo.filter.LogConsumerFilter
 LogProviderFilter=com.rookiefly.quickstart.dubbo.filter.LogProviderFilter
+HystrixFilter=com.rookiefly.quickstart.dubbo.filter.HystrixFilter

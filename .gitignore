@@ -37,6 +37,7 @@ skywalking-agent/
 
 .DS_Store
 
+static/
 mysql-data/
 redis-data/
 rmq/
