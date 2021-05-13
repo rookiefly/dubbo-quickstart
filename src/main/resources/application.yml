@@ -15,6 +15,10 @@ server:
     mbeanregistry:
       enabled: true
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
   application:
     name: dubbo-quickstart
   cache:
@@ -37,6 +41,8 @@ dubbo:
     name: dubbo
   scan:
     base-packages: com.rookiefly.quickstart.dubbo.remote.impl
+  consumer:
+    filter: -sentinel.dubbo.consumer.filter
 jasypt:
   encryptor:
     algorithm: PBEWITHHMACSHA512ANDAES_256

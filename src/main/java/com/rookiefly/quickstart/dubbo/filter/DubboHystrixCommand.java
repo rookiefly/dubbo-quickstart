@@ -29,7 +29,7 @@ public class DubboHystrixCommand extends HystrixCommand<Result> {
                 .andCommandKey(HystrixCommandKey.Factory.asKey(String.format("%s_%d", invocation.getMethodName(),
                         invocation.getArguments() == null ? 0 : invocation.getArguments().length)))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-                        .withCircuitBreakerRequestVolumeThreshold(300)
+                        .withCircuitBreakerRequestVolumeThreshold(300) //熔断器在整个统计时间内是否开启的阀值，默认20。也就是在metricsRollingStatisticalWindow（默认10s）内至少请求20次，熔断器才发挥起作用
                         .withCircuitBreakerSleepWindowInMilliseconds(3000)// 熔断器中断请求3秒后会进入半打开状态,放部分流量过去重试
                         .withCircuitBreakerErrorThresholdPercentage(50)// 错误率达到50开启熔断保护
                         .withExecutionTimeoutEnabled(false))// 使用dubbo的超时，禁用这里的超时
