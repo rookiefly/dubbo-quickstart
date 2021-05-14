@@ -1,14 +1,32 @@
+# 安装手册
+
+## 1、环境依赖
+
+- `Java 8+`
+- `MySQL 5.5+`
+- `Redis 2.8+`
+- `Maven 3.5+`
+- `Apache Dubbo 2.7+`
+- `Apache Dubbo Admin`
+- `Apache Zookeeper 3.4+`
+- `Alibaba Sentinel`
+
 ## DOCKER运行
 - 运行下列命令可以在本地Docker中创建一个镜像：
 ```shell script
 mvn package docker:build
 ```
-- 然后运行Docker容器：
+- 运行makefile依赖镜像：
 ```shell script
-docker run -d -p 8787:8787 --name dubbo-quickstart -e jasypt.encryptor.password=123456 rookiefly/dubbo-quickstart:latest
+make
+```
+- 然后运行docker-compose启动容器：
+```shell script
+cd docker-compose
+docker-compose up
 ```
 
-## 添加skywalking全链路跟踪
+## 添加skywalking全链路跟踪（可选）
 - 将agent目录拷贝到部署spring boot项目的机器里，修改agent的配置，配置在agent/config/agent.config：
 ```properties
 agent.service_name=${SW_AGENT_NAME:dubbo-quickstart}
