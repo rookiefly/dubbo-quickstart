@@ -1,5 +1,6 @@
 package com.rookiefly.quickstart.dubbo.filter;
 
+import com.netflix.hystrix.strategy.HystrixPlugins;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.Filter;
@@ -13,6 +14,7 @@ public class HystrixFilter implements Filter {
 
     @Override
     public Result invoke(Invoker invoker, Invocation invocation) throws RpcException {
+        HystrixPlugins.getInstance().registerConcurrencyStrategy(new TraceHystrixConcurrencyStrategy());
         DubboHystrixCommand command = new DubboHystrixCommand(invoker, invocation);
         return command.execute();
     }
