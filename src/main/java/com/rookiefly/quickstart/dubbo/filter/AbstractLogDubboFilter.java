@@ -21,20 +21,24 @@ import java.util.List;
 
 public abstract class AbstractLogDubboFilter implements Filter {
 
-    protected final static String EXCEPTION_KEY = "exception";
+    protected static final String EXCEPTION_KEY = "exception";
 
     public static final String COM_CALLER_SUCC = "_com_dubbo_success";
     public static final String COM_CALLER_FAIL = "_com_dubbo_failure";
     public static final String COM_REQUEST_IN = "_com_request_in";
     public static final String COM_REQUEST_OUT = "_com_request_out";
 
-    protected final static String REMOTE_APPLICATION_ATTACHMENT = "remoteApplication";
+    protected static final String REMOTE_APPLICATION_ATTACHMENT = "remoteApplication";
 
-    private final static String newLine = System.getProperty("line.separator");
+    private static final String NEW_LINE = System.getProperty("line.separator");
 
-    private final static Logger providerLogger = LoggerFactory.getLogger("providerLogger");
+    private static final Logger providerLogger = LoggerFactory.getLogger("providerLogger");
 
-    private final static Logger consumerLogger = LoggerFactory.getLogger("consumerLogger");
+    private static final Logger consumerLogger = LoggerFactory.getLogger("consumerLogger");
+
+    public static final int REQUEST_LOG_MAX_SIZE = 20000;
+
+    public static final int RESPONSE_LOG_MAX_SIZE = 20000;
 
     /**
      * 是否是Provider
@@ -42,7 +46,7 @@ public abstract class AbstractLogDubboFilter implements Filter {
      *
      * @return
      */
-    abstract protected boolean isProvider();
+    abstract boolean isProvider();
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
@@ -92,7 +96,7 @@ public abstract class AbstractLogDubboFilter implements Filter {
             /**
              * 如果result中有异常，或者result中的对象的返回码不是200，那么就做异常日志打印处理
              */
-            if (result != null && (result.getException() != null || (rpcResult != null && rpcResult.getCode() != RpcCode.SUCCESS))) {
+            if (result != null && (result.getException() != null || (rpcResult != null && !RpcCode.SUCCESS.equals(rpcResult.getCode())))) {
                 printErrorOrWarnLog(application, remoteApplication, invoker, invocation, interfaceSimpleName,
                         startTime, group, result.getException(), rpcResult);
 
@@ -119,12 +123,10 @@ public abstract class AbstractLogDubboFilter implements Filter {
                 }
             }
 
-        } catch (Throwable e) {
+        } catch (Exception e) {
             printErrorOrWarnLog(application, remoteApplication, invoker, invocation, interfaceSimpleName,
                     startTime, group, e, rpcResult);
             throw e;
-        } finally {
-            //
         }
 
         return result;
@@ -230,7 +232,7 @@ public abstract class AbstractLogDubboFilter implements Filter {
      * @return
      */
     protected int getRequestLogPrintSize() {
-        return 20000;
+        return REQUEST_LOG_MAX_SIZE;
     }
 
     /**
@@ -239,7 +241,7 @@ public abstract class AbstractLogDubboFilter implements Filter {
      * @return
      */
     protected int getResponseLogPrintSize() {
-        return 20000;
+        return RESPONSE_LOG_MAX_SIZE;
     }
 
     /**
@@ -284,8 +286,8 @@ public abstract class AbstractLogDubboFilter implements Filter {
         exceptionMsg = StringUtils.isBlank(exceptionMsg) ? "" : exceptionMsg;
 
         // 如果有多行，则只取第一行
-        if (newLine != null && exceptionMsg.contains(newLine)) {
-            exceptionMsg = exceptionMsg.substring(0, exceptionMsg.indexOf(newLine));
+        if (NEW_LINE != null && exceptionMsg.contains(NEW_LINE)) {
+            exceptionMsg = exceptionMsg.substring(0, exceptionMsg.indexOf(NEW_LINE));
         }
 
         return exceptionMsg;
@@ -323,11 +325,11 @@ public abstract class AbstractLogDubboFilter implements Filter {
     }
 
     protected String wrapLogMessage(String tag, Object msg, KeyValues keyValues) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(StringUtils.isBlank(tag) ? "_undef" : tag);
         sb.append("||_msg=");
         sb.append(msg != null ? msg.toString() : "");
-        if (keyValues != null && keyValues.getKeyValues().size() > 0) {
+        if (keyValues != null && !keyValues.getKeyValues().isEmpty()) {
             List<Object> keyValueList = keyValues.getKeyValues();
 
             for (int i = 0; i < keyValueList.size() - 1; i += 2) {

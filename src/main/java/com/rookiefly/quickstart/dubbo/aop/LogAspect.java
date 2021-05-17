@@ -45,15 +45,7 @@ public class LogAspect {
          * 打印当前的请求路径
          */
         log.info("RequestMapping:[{}]", request.getRequestURI());
-
-        //这里是从token中获取用户信息，打印当前的访问用户，代码不通用
-/*        String token = request.getHeader(JwtUtils.TOKEN_HEADER);
-        if (token != null && token.startsWith(JwtUtils.TOKEN_PREFIX)) {
-            token = token.replace(JwtUtils.TOKEN_PREFIX, "");
-            String username = JwtUtils.getUsername(token);
-            log.info("Current User is:[{}]",username);
-        }*/
-
+        
         log.info("RequestParam:{}", JSON.toJSONString(joinPoint.getArgs()));
     }
 
@@ -74,6 +66,7 @@ public class LogAspect {
          * 记录请求耗时
          */
         log.info("Request spend times : [{}ms]", System.currentTimeMillis() - startTime.get());
+        startTime.remove();
     }
 
     @AfterThrowing(pointcut = "requestLog()", throwing = "error")
@@ -88,6 +81,7 @@ public class LogAspect {
          * 记录请求耗时
          */
         log.info("Request spend times : [{}ms]", System.currentTimeMillis() - startTime.get());
+        startTime.remove();
     }
 
 }

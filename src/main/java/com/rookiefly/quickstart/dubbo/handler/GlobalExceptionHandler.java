@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    public static final String CONTROLLER_ERROR = "error";
     @Resource
     private PrometheusCustomMonitor monitor;
 
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public CommonResponse handle(Exception ex) {
-        log.error("error", ex);
+        log.error(CONTROLLER_ERROR, ex);
         monitor.getRequestErrorCount().increment();
         return CommonResponse.newErrorResponse();
     }
@@ -51,7 +52,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = BizException.class)
     public CommonResponse handle(BizException ex) {
-        log.error("error", ex);
+        log.error(CONTROLLER_ERROR, ex);
         monitor.getRequestErrorCount().increment();
         return CommonResponse.newErrorResponse(ex.getErrorCode());
     }
@@ -66,7 +67,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public CommonResponse handleException(MethodArgumentNotValidException ex) {
-        log.error("error", ex);
+        log.error(CONTROLLER_ERROR, ex);
         BindingResult bindingResult = ex.getBindingResult();
         List<ObjectError> objectErrorList = bindingResult.getAllErrors();
         String msg = objectErrorList.stream().findFirst().get().getDefaultMessage();
@@ -83,7 +84,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({BindException.class, ConstraintViolationException.class})
     public CommonResponse validatorExceptionHandler(Exception ex) {
-        log.error("error", ex);
+        log.error(CONTROLLER_ERROR, ex);
         String msg = ex instanceof BindException ? ((BindException) ex).getBindingResult().getAllErrors().stream().findFirst().get().getDefaultMessage()
                 : ((ConstraintViolationException) ex).getConstraintViolations().stream().findFirst().get().getMessage();
         return CommonResponse.newErrorResponse(BizErrorCodeEnum.REQUEST_ERROR, msg);

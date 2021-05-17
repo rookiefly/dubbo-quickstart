@@ -49,7 +49,7 @@ public class DubboHystrixCommand extends HystrixCommand<Result> {
     private static int getThreadPoolCoreSize(URL url) {
         if (url != null) {
             int size = url.getParameter("threadPoolCoreSize", DEFAULT_THREADPOOL_CORE_SIZE);
-            LOGGER.debug("threadPoolCoreSize is:" + size);
+            LOGGER.debug("threadPoolCoreSize is: {}", size);
             return size;
         }
         return DEFAULT_THREADPOOL_CORE_SIZE;

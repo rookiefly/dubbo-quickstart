@@ -39,6 +39,7 @@ public class RpcBizException extends RuntimeException {
         this.msg = msg;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("RpcBizException{");
         sb.append("code=").append(this.code);
