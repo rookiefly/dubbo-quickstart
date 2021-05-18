@@ -1,4 +1,4 @@
-package com.rookiefly.quickstart.dubbo.config;
+package com.rookiefly.quickstart.dubbo.handler;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.rookiefly.quickstart.dubbo.vo.CommonResponse;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 @Order(0)
-public class SentinelSpringMvcBlockHandlerConfig {
+public class SentinelSpringMvcBlockHandler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

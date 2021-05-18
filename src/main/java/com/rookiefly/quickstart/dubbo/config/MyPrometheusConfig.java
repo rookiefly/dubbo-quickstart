@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DubboQuickStartPrometheusConfig {
+public class MyPrometheusConfig {
 
     @Bean
     MeterRegistryCustomizer<MeterRegistry> configurer(
