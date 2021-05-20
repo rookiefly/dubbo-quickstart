@@ -29,5 +29,8 @@ spring:
     password: ''
     port: 6379
     timeout: 3000
+arthas:
+  agent-id: dubbo-quickstart
+  tunnel-server: ws://127.0.0.1:7777/ws
 swagger:
   swagger-open: true
