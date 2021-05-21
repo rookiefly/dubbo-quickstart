@@ -45,7 +45,7 @@ public class LogAspect {
          * 打印当前的请求路径
          */
         log.info("RequestMapping:[{}]", request.getRequestURI());
-        
+
         log.info("RequestParam:{}", JSON.toJSONString(joinPoint.getArgs()));
     }
 

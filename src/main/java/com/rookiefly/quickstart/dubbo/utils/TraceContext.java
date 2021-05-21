@@ -34,4 +34,9 @@ public final class TraceContext {
     public void setTraceId(String traceId) {
         this.traceId = traceId;
     }
+
+    public void removeTraceId() {
+        setTraceId(null);
+    }
+
 }

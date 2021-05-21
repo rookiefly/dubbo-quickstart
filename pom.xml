@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
         <spring-boot.version>2.3.6.RELEASE</spring-boot.version>
         <dubbo.version>2.7.11</dubbo.version>
-        <skywalking.version>8.2.0</skywalking.version>
+        <skywalking.version>8.5.0</skywalking.version>
         <sentinel.version>1.8.0</sentinel.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>

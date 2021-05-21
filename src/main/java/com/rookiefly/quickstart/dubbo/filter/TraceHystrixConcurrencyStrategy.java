@@ -15,7 +15,7 @@ public class TraceHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy 
             try {
                 return callable.call();
             } finally {
-                TraceContext.getContext().setTraceId(null);
+                TraceContext.getContext().removeTraceId();
             }
         };
     }
