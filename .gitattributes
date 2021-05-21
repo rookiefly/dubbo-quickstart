@@ -1,2 +1,1 @@
-dubbo-admin/dubbo-admin-0.2.0-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
-sentinel/sentinel-dashboard-1.8.0.jar filter=lfs diff=lfs merge=lfs -text
+dubbo-admin-0.2.0-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
