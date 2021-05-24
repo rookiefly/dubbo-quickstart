@@ -32,7 +32,7 @@ public class ValidationUtils {
         if (CollectionUtils.isNotEmpty(constraintViolations)) {
             List<String> tipList = Lists.newArrayList();
             constraintViolations.forEach(constraintViolationImpl -> tipList.add(constraintViolationImpl.getMessage()));
-            throw new RpcBizException(BizErrorCodeEnum.UNSPECIFIED.getCode(), StringUtils.join(tipList, ","));
+            throw new RpcBizException(BizErrorCodeEnum.REQUEST_ERROR.getCode(), StringUtils.join(tipList, ","));
         }
     }
 }

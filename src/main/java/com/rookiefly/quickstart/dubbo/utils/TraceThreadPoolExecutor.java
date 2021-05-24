@@ -194,7 +194,7 @@ public class TraceThreadPoolExecutor extends ThreadPoolExecutor {
         }
         startTime.remove();
         threadName.remove();
-        TraceContext.getContext().removeTraceId();
+        TraceContext.clear();
     }
 
     @Override
