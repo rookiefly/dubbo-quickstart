@@ -39,6 +39,8 @@ dubbo:
     name: ${spring.application.name}
   protocol:
     name: dubbo
+    threadname: defaultProvider
+    threadpool: watching
   scan:
     base-packages: com.rookiefly.quickstart.dubbo.remote.impl
   consumer:
@@ -63,6 +65,10 @@ management:
       enabled: true
     health:
       show-details: always
+      dubbo:
+        enabled: true
+        status:
+          extras: load,threadpool
   endpoints:
     web:
       cors:
