@@ -1,8 +1,8 @@
 package com.rookiefly.quickstart.dubbo.vo;
 
-import com.alibaba.fastjson.JSONObject;
 import com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum;
 import com.rookiefly.quickstart.dubbo.exception.ErrorCode;
+import com.rookiefly.quickstart.dubbo.utils.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,6 +50,6 @@ public class CommonResponse implements Serializable {
     }
 
     public String toJsonString() {
-        return JSONObject.toJSONString(this);
+        return JsonUtil.serialize(this);
     }
 }

@@ -1,6 +1,6 @@
 package com.rookiefly.quickstart.dubbo.aop;
 
-import com.alibaba.fastjson.JSON;
+import com.rookiefly.quickstart.dubbo.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -46,7 +46,7 @@ public class LogAspect {
          */
         log.info("RequestMapping:[{}]", request.getRequestURI());
 
-        log.info("RequestParam:{}", JSON.toJSONString(joinPoint.getArgs()));
+        log.info("RequestParam:{}", JsonUtil.serialize(joinPoint.getArgs()));
     }
 
     /**
@@ -60,7 +60,7 @@ public class LogAspect {
          * 记录响应信息
          */
 
-        log.info("Response:[{}]", JSON.toJSONString(response));
+        log.info("Response:[{}]", JsonUtil.serialize(response));
 
         /**
          * 记录请求耗时
@@ -75,7 +75,7 @@ public class LogAspect {
          * 记录响应信息
          */
 
-        log.info("Response:[{}]", JSON.toJSONString(error));
+        log.info("Response:[{}]", JsonUtil.serialize(error));
 
         /**
          * 记录请求耗时
