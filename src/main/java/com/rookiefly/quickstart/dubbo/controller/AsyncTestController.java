@@ -11,12 +11,12 @@ import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("test")
-public class TestController {
+public class AsyncTestController {
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
 
     @GetMapping("call/{name}")
-    public DeferredResult<String> testSync(@PathVariable String name) {
+    public DeferredResult<String> testAsync(@PathVariable String name) {
         final DeferredResult<String> deferredResult = new DeferredResult<>(5000L);
         EXECUTOR_SERVICE.execute(() -> {
             try {

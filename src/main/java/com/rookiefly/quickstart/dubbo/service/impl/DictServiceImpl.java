@@ -19,7 +19,7 @@ public class DictServiceImpl implements DictService {
     private DictMapper dictMapper;
 
     @Override
-    @Cacheable(value = "dictCache", key = "targetClass + methodName + #code")
+    @Cacheable(value = "dictCache", keyGenerator = "myKeyGenerator")
     public DictDataBO queryDictDataByCode(Long code) {
         DictDataDO dictDataDO = dictMapper.queryDictDataByCode(code);
         DictDataBO dictDataBO = new DictDataBO();
@@ -28,14 +28,13 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    @Cacheable(value = "dictCache", key = "targetClass + methodName + #type")
+    @Cacheable(value = "dictCache", keyGenerator = "myKeyGenerator")
     public List<DictDataBO> queryDictDataByType(String type) {
         List<DictDataDO> dictDataDOList = dictMapper.queryDictDataByType(type);
-        List<DictDataBO> dictDataBOList = dictDataDOList.stream().map(dictDataDO -> {
+        return dictDataDOList.stream().map(dictDataDO -> {
             DictDataBO dictDataBO = new DictDataBO();
             BeanUtils.copyProperties(dictDataDO, dictDataBO);
             return dictDataBO;
         }).collect(Collectors.toList());
-        return dictDataBOList;
     }
 }

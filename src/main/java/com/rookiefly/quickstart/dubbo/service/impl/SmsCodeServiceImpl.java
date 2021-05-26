@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Service("smsCodeService")
 public class SmsCodeServiceImpl implements SmsCodeService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(SmsCodeServiceImpl.class);
 
     public static final int SMS_CODE_LENGTH = 6;
     public static final int TIMEOUT = 5;
@@ -52,7 +52,6 @@ public class SmsCodeServiceImpl implements SmsCodeService {
     }
 
     private String getSmsCodeKey(String mobile) {
-        String smsCodeKey = String.format(SMS_CODE_KEY, mobile);
-        return smsCodeKey;
+        return String.format(SMS_CODE_KEY, mobile);
     }
 }

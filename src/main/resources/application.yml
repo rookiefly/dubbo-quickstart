@@ -24,7 +24,8 @@ spring:
   cache:
     cache-names: dictCache,cityCache
     caffeine:
-      spec: maximumSize=500,expireAfterAccess=600s
+      spec: maximumSize=500,expireAfterAccess=60s
+    type: redis
   datasource:
     hikari:
       connectionTimeout: 30000
