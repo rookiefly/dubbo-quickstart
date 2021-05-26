@@ -12,6 +12,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static org.apache.dubbo.common.constants.CommonConstants.DEFAULT_THREAD_NAME;
+import static org.apache.dubbo.common.constants.CommonConstants.THREAD_NAME_KEY;
+
 public class WatchingThreadPool extends FixedThreadPool implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WatchingThreadPool.class);
@@ -39,12 +42,13 @@ public class WatchingThreadPool extends FixedThreadPool implements Runnable {
         for (Map.Entry<URL, ThreadPoolExecutor> entry : THEAD_POOL_MAP.entrySet()) {
             URL url = entry.getKey();
             ThreadPoolExecutor threadPoolExecutor = entry.getValue();
+            String name = url.getParameter(THREAD_NAME_KEY, DEFAULT_THREAD_NAME);
             // 获取正在活动的线程数
             int activeCount = threadPoolExecutor.getActiveCount();
             // 获取总的线程数
             int corePoolSize = threadPoolExecutor.getCorePoolSize();
             double percent = activeCount / (corePoolSize * 1.0);
-            LOGGER.info("线程池运行状态：{}/{},: {}%", activeCount, corePoolSize, percent * 100);
+            LOGGER.info("[host={}] [thread.name={}]线程池运行状态：{}/{},: {}%", url.getHost(), name, activeCount, corePoolSize, percent * 100);
             if (percent > ALARM_PERCENT) {
                 LOGGER.error("超出预警值 : host:{}, 当前使用量 {}%, URL:{}", url.getHost(), percent * 100, url);
             }
