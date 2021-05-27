@@ -26,6 +26,9 @@ spring:
     caffeine:
       spec: maximumSize=500,expireAfterAccess=60s
     type: redis
+    redis:
+      time-to-live: 60s
+      cache-null-values: true
   datasource:
     hikari:
       connectionTimeout: 30000

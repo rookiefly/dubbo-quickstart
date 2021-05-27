@@ -20,6 +20,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Cacheable(value = "cityCache", keyGenerator = "myKeyGenerator")
+//    @CacheEvict(cacheNames = "cityCache", keyGenerator = "myKeyGenerator")
     public CityDataBO queryCityDataByCityId(Long cityId) {
         CityDataDO cityDataDO = cityMapper.queryCityDataByCityId(cityId);
         CityDataBO cityDataBO = new CityDataBO();
