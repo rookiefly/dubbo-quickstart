@@ -1,0 +1,59 @@
+dubbo:
+  registry:
+    address: zookeeper://localhost:2181
+  config-center:
+    address: zookeeper://localhost:2181
+  metadata-report:
+    address: zookeeper://localhost:2181
+  monitor:
+    protocol: registry
+spring:
+  shardingsphere:
+    datasource:
+      ds0:
+        driver-class-name: com.mysql.jdbc.Driver
+        password: '123456'
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:mysql://localhost:3306/ds0
+        username: root
+      ds1:
+        driver-class-name: com.mysql.jdbc.Driver
+        password: '123456'
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:mysql://localhost:3306/ds1
+        username: root
+      names: ds0,ds1
+    sharding:
+      default-database-strategy:
+        inline:
+          algorithm-expression: ds$->{user_id % 2}
+          sharding-column: user_id
+      tables:
+        t_order:
+          actual-data-nodes: ds$->{0..1}.t_order$->{0..1}
+          table-strategy:
+            inline:
+              algorithm-expression: t_order$->{order_id % 2}
+              sharding-column: order_id
+        t_order_item:
+          actual-data-nodes: ds$->{0..1}.t_order_item$->{0..1}
+          table-strategy:
+            inline:
+              algorithm-expression: t_order_item$->{order_id % 2}
+              sharding-column: order_id
+  redis:
+    database: 0
+    host: localhost
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 5
+        max-wait: 5000
+    password: ''
+    port: 6379
+    timeout: 3000
+arthas:
+  agent-id: dubbo-quickstart
+  tunnel-server: ws://127.0.0.1:7777/ws
+swagger:
+  swagger-open: true

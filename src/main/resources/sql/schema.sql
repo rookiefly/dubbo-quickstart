@@ -58,3 +58,40 @@ create table if not exists city_data
     ext_name      varchar(100)     not null comment '数据源原始的名称，为未精简的名称',
     primary key (id)
 ) comment '省市区镇数据';
+
+-- ----------------------------
+-- 4、订单分库分表
+-- ----------------------------
+DROP SCHEMA IF EXISTS ds0;
+DROP SCHEMA IF EXISTS ds1;
+
+CREATE TABLE IF NOT EXISTS ds0.t_order
+(
+    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id  INT    NOT NULL,
+    status   VARCHAR(50),
+    PRIMARY KEY (order_id)
+);
+CREATE TABLE IF NOT EXISTS ds1.t_order
+(
+    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id  INT    NOT NULL,
+    status   VARCHAR(50),
+    PRIMARY KEY (order_id)
+);
+CREATE TABLE IF NOT EXISTS ds0.t_order_item
+(
+    order_item_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_id      BIGINT NOT NULL,
+    user_id       INT    NOT NULL,
+    status        VARCHAR(50),
+    PRIMARY KEY (order_item_id)
+);
+CREATE TABLE IF NOT EXISTS ds1.t_order_item
+(
+    order_item_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_id      BIGINT NOT NULL,
+    user_id       INT    NOT NULL,
+    status        VARCHAR(50),
+    PRIMARY KEY (order_item_id)
+);
