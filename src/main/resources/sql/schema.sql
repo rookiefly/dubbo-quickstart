@@ -69,21 +69,21 @@ CREATE SCHEMA IF NOT EXISTS ds1;
 
 CREATE TABLE IF NOT EXISTS ds0.t_order_0
 (
-    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
     user_id  INT    NOT NULL,
     status   VARCHAR(50),
     PRIMARY KEY (order_id)
 );
 CREATE TABLE IF NOT EXISTS ds1.t_order_0
 (
-    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
     user_id  INT    NOT NULL,
     status   VARCHAR(50),
     PRIMARY KEY (order_id)
 );
 CREATE TABLE IF NOT EXISTS ds0.t_order_item_0
 (
-    order_item_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_item_id BIGINT NOT NULL,
     order_id      BIGINT NOT NULL,
     user_id       INT    NOT NULL,
     status        VARCHAR(50),
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS ds0.t_order_item_0
 );
 CREATE TABLE IF NOT EXISTS ds1.t_order_item_0
 (
-    order_item_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_item_id BIGINT NOT NULL,
     order_id      BIGINT NOT NULL,
     user_id       INT    NOT NULL,
     status        VARCHAR(50),
@@ -100,21 +100,21 @@ CREATE TABLE IF NOT EXISTS ds1.t_order_item_0
 
 CREATE TABLE IF NOT EXISTS ds0.t_order_1
 (
-    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
     user_id  INT    NOT NULL,
     status   VARCHAR(50),
     PRIMARY KEY (order_id)
 );
 CREATE TABLE IF NOT EXISTS ds1.t_order_1
 (
-    order_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
     user_id  INT    NOT NULL,
     status   VARCHAR(50),
     PRIMARY KEY (order_id)
 );
 CREATE TABLE IF NOT EXISTS ds0.t_order_item_1
 (
-    order_item_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_item_id BIGINT NOT NULL,
     order_id      BIGINT NOT NULL,
     user_id       INT    NOT NULL,
     status        VARCHAR(50),
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS ds0.t_order_item_1
 );
 CREATE TABLE IF NOT EXISTS ds1.t_order_item_1
 (
-    order_item_id BIGINT NOT NULL AUTO_INCREMENT,
+    order_item_id BIGINT NOT NULL,
     order_id      BIGINT NOT NULL,
     user_id       INT    NOT NULL,
     status        VARCHAR(50),
