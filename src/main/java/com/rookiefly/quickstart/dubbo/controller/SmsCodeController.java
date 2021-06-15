@@ -2,6 +2,8 @@ package com.rookiefly.quickstart.dubbo.controller;
 
 import com.rookiefly.quickstart.dubbo.bo.SmsCodeBO;
 import com.rookiefly.quickstart.dubbo.param.SmsCodeParam;
+import com.rookiefly.quickstart.dubbo.ratelimiter.RateLimiter;
+import com.rookiefly.quickstart.dubbo.ratelimiter.RateLimiterFactory;
 import com.rookiefly.quickstart.dubbo.service.SmsCodeService;
 import com.rookiefly.quickstart.dubbo.vo.CommonResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +25,15 @@ public class SmsCodeController {
     @Resource
     private SmsCodeService smsCodeService;
 
+    @Resource
+    private RateLimiterFactory rateLimiterFactory;
+
     @GetMapping("/send/{mobile}")
     public CommonResponse sendSmsCode(@PathVariable("mobile") @NotBlank(message = "手机号不能为空") String mobile) {
+        RateLimiter rateLimiter = rateLimiterFactory.getRateLimiter("sendSmsCode", 3, 30);
+        if (!rateLimiter.acquire()) {
+            throw new RuntimeException("被限流了");
+        }
         SmsCodeBO smsCodeBO = smsCodeService.sendSmsCode(mobile);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
         HashMap<Object, SmsCodeBO> data = new HashMap<>();
