@@ -22,7 +22,7 @@
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <!--    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
       <FileNamePattern>
-        error.%d{yyyy-MM-dd}.%i.log
+        error.%d{yyyy-MM-dd}.log
       </FileNamePattern>
       <!--      <maxFileSize>10MB</maxFileSize>-->
       <maxHistory>7</maxHistory>
