@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-                    <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
-                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level logger_name:%logger{36} - [%tid] - message:%msg%n</pattern>
-                    </layout>
-                </encoder>-->
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level logger_name:%logger{36} message:%msg%n</pattern>
-        </encoder>
-    </appender>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                    <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level logger_name:%logger{36} - [%tid] - message:%msg%n</pattern>
+                </layout>
+            </encoder>-->
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level logger_name:%logger{36} -
+        message:%msg%n
+      </pattern>
+    </encoder>
+  </appender>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-    </root>
+  <appender name="ERROR-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <append>true</append>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>error</level>
+    </filter>
+    <file>error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!--    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+      <FileNamePattern>
+        error.%d{yyyy-MM-dd}.%i.log
+      </FileNamePattern>
+      <!--      <maxFileSize>10MB</maxFileSize>-->
+      <maxHistory>7</maxHistory>
+      <!--      <totalSizeCap>500MB</totalSizeCap>-->
+      <cleanHistoryOnStart>true</cleanHistoryOnStart>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level logger_name:%logger{36} -
+        message:%msg%n
+      </pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="ERROR-APPENDER"/>
+  </root>
 </configuration>
