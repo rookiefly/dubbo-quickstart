@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/smsCode")
@@ -36,9 +35,7 @@ public class SmsCodeController {
         }
         SmsCodeBO smsCodeBO = smsCodeService.sendSmsCode(mobile);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
-        HashMap<Object, SmsCodeBO> data = new HashMap<>();
-        successResponse.setData(data);
-        data.put("smsCode", smsCodeBO);
+        successResponse.setData(smsCodeBO);
         return successResponse;
     }
 

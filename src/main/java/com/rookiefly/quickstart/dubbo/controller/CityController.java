@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,9 +33,7 @@ public class CityController {
     public CommonResponse queryCityDataByType(@PathVariable("type") @NotBlank(message = "城市类型不能为空") Integer type) {
         List<CityDataBO> dictDataBOList = cityService.queryCityDataByType(type);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
-        HashMap<Object, Object> data = new HashMap<>();
-        successResponse.setData(data);
-        data.put("cityDataList", dictDataBOList);
+        successResponse.setData(dictDataBOList);
         return successResponse;
     }
 
@@ -50,9 +47,7 @@ public class CityController {
     public CommonResponse queryCityDataByCode(@PathVariable("cityId") @NotNull(message = "城市ID不能为空") Long cityId) {
         CityDataBO cityDataBO = cityService.queryCityDataByCityId(cityId);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
-        HashMap<Object, Object> data = new HashMap<>();
-        successResponse.setData(data);
-        data.put("cityData", cityDataBO);
+        successResponse.setData(cityDataBO);
         return successResponse;
     }
 }

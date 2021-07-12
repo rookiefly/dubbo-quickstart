@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,9 +33,7 @@ public class DictController {
     public CommonResponse queryDictDataByType(@PathVariable("type") @NotBlank(message = "字典类型不能为空") String type) {
         List<DictDataBO> dictDataBOList = dictService.queryDictDataByType(type);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
-        HashMap<Object, Object> data = new HashMap<>();
-        successResponse.setData(data);
-        data.put("dictDataList", dictDataBOList);
+        successResponse.setData(dictDataBOList);
         return successResponse;
     }
 
@@ -50,9 +47,7 @@ public class DictController {
     public CommonResponse queryDictDataByCode(@PathVariable("code") @NotNull(message = "字典编码不能为空") Long code) {
         DictDataBO dictDataBO = dictService.queryDictDataByCode(code);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();
-        HashMap<Object, Object> data = new HashMap<>();
-        successResponse.setData(data);
-        data.put("dictData", dictDataBO);
+        successResponse.setData(dictDataBO);
         return successResponse;
     }
 }
