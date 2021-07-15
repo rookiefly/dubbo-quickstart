@@ -26,7 +26,6 @@ public class AsyncTestController {
             }
             deferredResult.setResult(String.format("Hello %s", name));
         });
-        // deferredResult.setResult(String.format("Hello %s", name));
         return deferredResult;
     }
 }

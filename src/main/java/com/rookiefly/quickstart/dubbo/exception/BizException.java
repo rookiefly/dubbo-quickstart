@@ -1,11 +1,8 @@
 package com.rookiefly.quickstart.dubbo.exception;
 
-import lombok.Data;
-
 /**
  * Description:业务异常类信息
  */
-@Data
 public class BizException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
@@ -13,7 +10,7 @@ public class BizException extends RuntimeException {
     /**
      * 错误码
      */
-    protected final ErrorCode errorCode;
+    private final ErrorCode errorCode;
 
     /**
      * 无参默认构造UNSPECIFIED

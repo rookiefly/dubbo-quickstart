@@ -1,9 +1,7 @@
 package com.rookiefly.quickstart.dubbo.config;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebInterceptor;
-import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebTotalInterceptor;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.config.SentinelWebMvcConfig;
-import com.alibaba.csp.sentinel.adapter.spring.webmvc.config.SentinelWebMvcTotalConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -45,18 +43,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
         config.setOriginParser(request -> request.getHeader("S-user"));
 
         // Add sentinel interceptor
-        registry.addInterceptor(new SentinelWebInterceptor(config)).addPathPatterns("/dict/**");
-    }
-
-    private void addSpringMvcTotalInterceptor(InterceptorRegistry registry) {
-        //Config
-        SentinelWebMvcTotalConfig config = new SentinelWebMvcTotalConfig();
-
-        //Custom configuration if necessary
-        config.setRequestAttributeName("my_sentinel_spring_mvc_total_entity_container");
-        config.setTotalResourceName("my-spring-mvc-total-url-request");
-
-        //Add sentinel interceptor
-        registry.addInterceptor(new SentinelWebTotalInterceptor(config)).addPathPatterns("/dict/**");
+        registry.addInterceptor(new SentinelWebInterceptor(config)).addPathPatterns("/dict/**", "/city/**", "/smsCode/**");
     }
 }

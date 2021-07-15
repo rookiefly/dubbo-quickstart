@@ -1,6 +1,7 @@
 package com.rookiefly.quickstart.dubbo.controller;
 
 import com.rookiefly.quickstart.dubbo.bo.SmsCodeBO;
+import com.rookiefly.quickstart.dubbo.exception.BizException;
 import com.rookiefly.quickstart.dubbo.param.SmsCodeParam;
 import com.rookiefly.quickstart.dubbo.ratelimiter.RateLimiter;
 import com.rookiefly.quickstart.dubbo.ratelimiter.RateLimiterFactory;
@@ -17,6 +18,8 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import static com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum.REQUEST_RATE_LIMIT_ERROR;
+
 @RestController
 @RequestMapping("/smsCode")
 public class SmsCodeController {
@@ -31,7 +34,7 @@ public class SmsCodeController {
     public CommonResponse sendSmsCode(@PathVariable("mobile") @NotBlank(message = "手机号不能为空") String mobile) {
         RateLimiter rateLimiter = rateLimiterFactory.getRateLimiter("sendSmsCode", 3, 30);
         if (!rateLimiter.acquire()) {
-            throw new RuntimeException("被限流了");
+            throw new BizException(REQUEST_RATE_LIMIT_ERROR);
         }
         SmsCodeBO smsCodeBO = smsCodeService.sendSmsCode(mobile);
         CommonResponse successResponse = CommonResponse.newSuccessResponse();

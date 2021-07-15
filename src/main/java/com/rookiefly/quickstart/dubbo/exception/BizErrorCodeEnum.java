@@ -19,23 +19,13 @@ public enum BizErrorCodeEnum implements ErrorCode {
     PAGE_SIZE_IS_NULL("4002", "页数不能为空"),
     ID_IS_NULL("4003", "ID不能为空"),
     SEARCH_IS_NULL("4004", "搜索条件不能为空"),
+    REQUEST_RATE_LIMIT_ERROR("4005", "请求被限流"),
 
 
     // 短信相关
     SEND_MASSAGE_FAIL("30001", "发送短消息失败"),
     SMS_CODE_NOT_EXITS("30002", "无效的验证码，请重试"),
     SMS_CODE_ILLEGAL("30003", "验证码错误"),
-
-    //支付相关
-    CREATE_PAY_ORDER_FAIL("40001", "创建订单支付失败"),
-    UPDATE_PAY_ORDER_FAIL("40002", "更新支付订单失败"),
-    DEL_PAY_ORDER_FAIL("40003", "更新支付订单失败"),
-    PAY_ORDER_NO_EXISTS("40004", "支付订单不存在"),
-    REFUND_APPLY_NO_EXISTS("40005", "退款申请不存在"),
-    VERIFY_NOT_PASS("40006", "验签"),
-    RES_FAIL("40007", "响应失败"),
-    PAY_CHANNEL_IS_NULL("40008", "支付渠道不能为空"),
-    PAY_CHANNEL_PARAM_ERROR("40009", "支付订单渠道参数错误"),
     ;
 
     /**

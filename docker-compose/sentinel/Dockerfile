@@ -6,7 +6,7 @@ ARG version
 ARG port
 
 # sentinel version
-ENV SENTINEL_VERSION ${version:-1.8.1}
+ENV SENTINEL_VERSION ${version:-1.8.2}
 #PORT
 ENV PORT ${port:-8280}
 ENV JAVA_OPTS=""
