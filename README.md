@@ -11,6 +11,8 @@
 - `Apache Zookeeper 3.4+`
 - `Alibaba Sentinel`
 
+`注意：JVM启动参数设置：-Djasypt.encryptor.password=123456`
+
 ## DOCKER运行
 - 运行下列命令可以在本地Docker中创建一个镜像：
 ```shell script
