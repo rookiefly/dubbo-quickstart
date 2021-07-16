@@ -1,6 +1,7 @@
 package com.rookiefly.quickstart.dubbo;
 
 import com.rookiefly.quickstart.dubbo.service.OrderIdGeneratorService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,13 +14,10 @@ class DubboQuickstartApplicationTests {
     private OrderIdGeneratorService orderIdGeneratorService;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
-    public void testOrderIdGenerator() {
+    void testOrderIdGenerator() {
         String orderId = orderIdGeneratorService.generateOrderId();
         System.out.println(orderId);
+        Assertions.assertNotNull(orderId);
     }
 
 }

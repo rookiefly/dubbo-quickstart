@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 生成日期开头加0001，0002，0003的工具类
+ * 生成日期开头加0001，0002，0003的订单号工具类
  */
 @Service
 public class OrderIdGeneratorService {
