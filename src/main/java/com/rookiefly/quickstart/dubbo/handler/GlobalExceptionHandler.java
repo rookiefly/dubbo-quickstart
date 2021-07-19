@@ -1,5 +1,9 @@
 package com.rookiefly.quickstart.dubbo.handler;
 
+import cn.dev33.satoken.exception.DisableLoginException;
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
 import com.rookiefly.quickstart.dubbo.exception.BizErrorCodeEnum;
 import com.rookiefly.quickstart.dubbo.exception.BizException;
 import com.rookiefly.quickstart.dubbo.monitor.PrometheusCustomMonitor;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 
 @ControllerAdvice
 @Slf4j
@@ -39,6 +44,15 @@ public class GlobalExceptionHandler {
     public CommonResponse handle(Exception ex) {
         log.error(CONTROLLER_ERROR, ex);
         monitor.getRequestErrorCount().increment();
+        if (ex instanceof NotLoginException) {    // 如果是未登录异常
+            return CommonResponse.newErrorResponse(BizErrorCodeEnum.NOT_LOGIN_ERROR);
+        } else if (ex instanceof NotRoleException) {        // 如果是角色异常
+            return CommonResponse.newErrorResponse(BizErrorCodeEnum.NO_ROLE_ERROR);
+        } else if (ex instanceof NotPermissionException) {    // 如果是权限异常
+            return CommonResponse.newErrorResponse(BizErrorCodeEnum.NO_PERMISSION_ERROR);
+        } else if (ex instanceof DisableLoginException) {    // 如果是被封禁异常
+            return CommonResponse.newErrorResponse(BizErrorCodeEnum.ACCOUNT_BANNED_ERROR);
+        }
         return CommonResponse.newErrorResponse();
     }
 
@@ -70,7 +84,8 @@ public class GlobalExceptionHandler {
         log.error(CONTROLLER_ERROR, ex);
         BindingResult bindingResult = ex.getBindingResult();
         List<ObjectError> objectErrorList = bindingResult.getAllErrors();
-        String msg = objectErrorList.stream().findFirst().get().getDefaultMessage();
+        Optional<ObjectError> objectErrorOptional = objectErrorList.stream().findFirst();
+        String msg = objectErrorOptional.isPresent() ? objectErrorOptional.get().getDefaultMessage() : "参数异常";
         return CommonResponse.newErrorResponse(BizErrorCodeEnum.REQUEST_ERROR, msg);
     }
 

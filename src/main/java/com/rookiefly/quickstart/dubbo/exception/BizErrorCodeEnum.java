@@ -20,6 +20,10 @@ public enum BizErrorCodeEnum implements ErrorCode {
     ID_IS_NULL("4003", "ID不能为空"),
     SEARCH_IS_NULL("4004", "搜索条件不能为空"),
     REQUEST_RATE_LIMIT_ERROR("4005", "请求被限流"),
+    NO_ROLE_ERROR("4006", "无此角色"),
+    NO_PERMISSION_ERROR("4007", "无此权限"),
+    ACCOUNT_BANNED_ERROR("4008", "账号被封禁"),
+    NOT_LOGIN_ERROR("4009", "未登录"),
 
 
     // 短信相关

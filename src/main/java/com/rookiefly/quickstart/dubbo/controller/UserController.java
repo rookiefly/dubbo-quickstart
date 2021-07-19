@@ -1,5 +1,6 @@
 package com.rookiefly.quickstart.dubbo.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,17 @@ public class UserController {
      */
     @RequestMapping("isLogin")
     public String isLogin(String username, String password) {
+        return "当前会话是否登录：" + StpUtil.isLogin();
+    }
+
+    /**
+     * 查询登录信息，浏览器访问： http://localhost:8787/user/info
+     */
+    @RequestMapping("info")
+    @SaCheckLogin
+    public String info() {
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        return "当前会话是否登录：" + StpUtil.isLogin() + ", token信息：" + tokenInfo.toString();
+        return "当前会话token信息：" + tokenInfo.toString();
     }
 
 }
